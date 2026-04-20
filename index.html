@@ -1,243 +1,238 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>التطبيق الأسطوري</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تطبيق برمجة</title>
 
 <style>
-body{font-family:Arial;background:#f5f5f5;margin:0}
+body {
+  margin:0;
+  font-family: Arial;
+  background:#f5f6fa;
+}
 
 /* هيدر */
-.header{
-background:linear-gradient(to right,#7b5cff,#9b7bff);
-color:white;padding:20px;text-align:center;
-border-radius:0 0 25px 25px;
+.header {
+  background: linear-gradient(45deg,#6a5af9,#8364ff);
+  color:white;
+  padding:20px;
+  border-radius:0 0 25px 25px;
 }
 
 /* كروت */
-.card{
-background:white;margin:15px;padding:15px;
-border-radius:15px;
+.card {
+  background:white;
+  margin:15px;
+  padding:15px;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.05);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:0.3s;
+}
+.card:hover { transform:scale(1.03); }
+
+.icon {
+  width:50px;
+  height:50px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:22px;
 }
 
-/* زر */
-button{
-width:100%;padding:12px;margin-top:10px;
-border:none;border-radius:10px;
-background:linear-gradient(to right,#7b5cff,#9b7bff);
-color:white;font-size:16px;
+/* ازرار */
+.btn {
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(45deg,#6a5af9,#8364ff);
+  color:white;
+  font-size:16px;
 }
+
+/* اخفاء الصفحات */
+.page { display:none; }
+.active { display:block; }
 
 /* تقدم */
-.progress{background:#ddd;height:10px;border-radius:10px}
-.bar{background:#7b5cff;height:100%;width:0%}
-
-/* ناف */
-.nav{
-position:fixed;bottom:0;width:100%;
-display:flex;background:white;
+.progress {
+  background:#ddd;
+  border-radius:20px;
+  overflow:hidden;
 }
-.nav button{flex:1;border-radius:0}
+.bar {
+  height:10px;
+  width:0%;
+  background:#6a5af9;
+}
 
-/* أشكال */
-.circle{width:70px;height:70px;background:red;border-radius:50%;display:inline-block;margin:10px}
-.square{width:70px;height:70px;background:blue;display:inline-block;margin:10px}
-.drop{width:80px;height:80px;border:2px dashed #aaa;display:inline-block;margin:10px}
+/* اشكال */
+.circle, .square {
+  width:80px;
+  height:80px;
+  margin:20px auto;
+}
 
-/* إشعار */
-.toast{
-position:fixed;top:20px;left:50%;
-transform:translateX(-50%);
-background:#333;color:white;
-padding:10px 20px;border-radius:10px;
-display:none;
+.circle {
+  background:#6a5af9;
+  border-radius:50%;
+  animation:spin 3s infinite linear;
+}
+
+.square {
+  background:#ff6584;
+  animation:bounce 2s infinite;
+}
+
+/* حركات */
+@keyframes spin {
+  0% {transform:rotate(0);}
+  100% {transform:rotate(360deg);}
+}
+
+@keyframes bounce {
+  0%,100% {transform:translateY(0);}
+  50% {transform:translateY(-20px);}
 }
 </style>
 </head>
 
 <body>
 
+<!-- الصفحة الرئيسية -->
+<div id="home" class="page active">
+
 <div class="header">
-<h2>🚀 تطبيقك الذكي</h2>
-<p>تعلم + لعب + تحدي</p>
+  <h2>💻 برمجة - حياة الدفيري</h2>
+  <p>ابدأ رحلتك التعليمية 🚀</p>
+</div>
+
+<div class="card" onclick="go('math')">
+  <div>
+    <h3>اختبار رياضي</h3>
+    <p>سهل - متوسط - صعب</p>
+  </div>
+  <div class="icon" style="background:#6a5af9">🧠</div>
+</div>
+
+<div class="card" onclick="go('shapes')">
+  <div>
+    <h3>لعبة الأشكال</h3>
+    <p>اختر الشكل الصحيح</p>
+  </div>
+  <div class="icon" style="background:#ff6584">🔷</div>
+</div>
+
+<div class="card" onclick="go('goals')">
+  <div>
+    <h3>الأهداف</h3>
+    <p>تقدمك اليومي</p>
+  </div>
+  <div class="icon" style="background:#00c9a7">🎯</div>
+</div>
+
+</div>
+
+<!-- الرياضيات -->
+<div id="math" class="page">
+<div class="header"><h2>🧠 اختبار</h2></div>
+
+<div class="card">
+<p>كم 3 + 5 ؟</p>
+<button class="btn" onclick="check(this,true)">8</button>
+<button class="btn" onclick="check(this,false)">6</button>
 </div>
 
 <div class="card">
-<h3>📊 تقدمك</h3>
+<p>كم 2 × 10 ؟</p>
+<button class="btn" onclick="check(this,true)">20</button>
+<button class="btn" onclick="check(this,false)">15</button>
+</div>
+
 <div class="progress"><div id="bar" class="bar"></div></div>
-<p id="info"></p>
+<p>النقاط: <span id="score">0</span></p>
+
+<button class="btn" onclick="go('home')">رجوع</button>
 </div>
 
-<div id="content"></div>
+<!-- الاشكال -->
+<div id="shapes" class="page">
+<div class="header"><h2>🎮 لعبة الأشكال</h2></div>
 
-<div class="nav">
-<button onclick="home()">🏠</button>
-<button onclick="quiz()">🧠</button>
-<button onclick="game()">🎮</button>
-<button onclick="achievements()">🏆</button>
+<p style="text-align:center">اضغط على الدائرة</p>
+
+<div class="circle" onclick="shape(true)"></div>
+<div class="square" onclick="shape(false)"></div>
+
+<p style="text-align:center">النقاط: <span id="shapeScore">0</span></p>
+
+<button class="btn" onclick="go('home')">رجوع</button>
 </div>
 
-<div id="toast" class="toast"></div>
+<!-- الأهداف -->
+<div id="goals" class="page">
+<div class="header"><h2>🎯 الأهداف</h2></div>
+
+<div class="card"><p>✔ مشاهدة درس</p></div>
+<div class="card"><p>⬜ حل اختبار</p></div>
+<div class="card"><p>⬜ قراءة ملخص</p></div>
+
+<button class="btn" onclick="go('home')">رجوع</button>
+</div>
 
 <script>
+let score = 0;
+let answered = 0;
+let shapeScore = 0;
 
-/* بيانات */
-let xp = parseInt(localStorage.getItem("xp")) || 0;
-let level = parseInt(localStorage.getItem("level")) || 1;
-let wins = parseInt(localStorage.getItem("wins")) || 0;
-
-updateUI();
-
-/* واجهة */
-function updateUI(){
-document.getElementById("info").innerText=
-"المستوى: "+level+" | XP: "+xp;
-
-let percent = (xp % 50)*2;
-document.getElementById("bar").style.width = percent+"%";
+function go(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
 }
 
-/* إشعار */
-function toast(msg){
-let t=document.getElementById("toast");
-t.innerText=msg;
-t.style.display="block";
-setTimeout(()=>t.style.display="none",1500);
+function check(btn, correct){
+  if(btn.disabled) return;
+
+  if(correct){
+    btn.style.background="green";
+    score+=2;
+  } else {
+    btn.style.background="red";
+  }
+
+  btn.disabled=true;
+  answered++;
+
+  document.getElementById("score").innerText=score;
+
+  let percent = (answered/2)*100;
+  document.getElementById("bar").style.width = percent+"%";
+
+  if(answered===2){
+    setTimeout(()=>{
+      alert("انتهى المستوى!");
+      go('home');
+      answered=0;
+    },800);
+  }
 }
 
-/* الصفحة */
-function home(){
-document.getElementById("content").innerHTML=`
-<div class="card">
-<h3>🎯 ابدأ التحدي</h3>
-<button onclick="start()">ابدأ الآن</button>
-</div>
-`;
+function shape(correct){
+  if(correct){
+    shapeScore+=2;
+    alert("صح!");
+  } else {
+    alert("خطأ!");
+  }
+  document.getElementById("shapeScore").innerText=shapeScore;
 }
-
-/* اختبار عشوائي */
-let currentQ;
-
-function start(){
-newQuestion();
-}
-
-function newQuestion(){
-let a=Math.floor(Math.random()*10)+1;
-let b=Math.floor(Math.random()*10)+1;
-
-currentQ={
-q: a+" + "+b,
-correct: a+b
-};
-
-let wrong=currentQ.correct+Math.floor(Math.random()*3)+1;
-
-document.getElementById("content").innerHTML=`
-<div class="card">
-<p>كم ${currentQ.q} ؟</p>
-<button onclick="answer(${currentQ.correct})">${currentQ.correct}</button>
-<button onclick="answer(${wrong})">${wrong}</button>
-</div>
-`;
-}
-
-/* الإجابة */
-function answer(val){
-
-if(val==currentQ.correct){
-xp+=10;
-wins++;
-playSound(true);
-toast("✔ إجابة صحيحة +10 XP");
-}else{
-playSound(false);
-toast("❌ خطأ");
-}
-
-levelUp();
-save();
-updateUI();
-
-/* سؤال جديد */
-setTimeout(newQuestion,800);
-}
-
-/* Level Up */
-function levelUp(){
-if(xp >= level*50){
-level++;
-toast("🔥 ارتقيت لمستوى "+level);
-}
-}
-
-/* لعبة */
-function game(){
-document.getElementById("content").innerHTML=`
-<div class="card">
-<h3>🎮 اسحب الشكل</h3>
-
-<div draggable="true" ondragstart="drag(event)" id="circle" class="circle"></div>
-<div draggable="true" ondragstart="drag(event)" id="square" class="square"></div>
-
-<br>
-
-<p>ضع الدائرة 👇</p>
-<div class="drop" data-type="circle" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-<p>ضع المربع 👇</p>
-<div class="drop" data-type="square" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-</div>
-`;
-}
-
-function allowDrop(e){e.preventDefault()}
-function drag(e){e.dataTransfer.setData("id",e.target.id)}
-
-function drop(e){
-e.preventDefault();
-let id=e.dataTransfer.getData("id");
-
-if(e.target.dataset.type==id){
-e.target.appendChild(document.getElementById(id));
-xp+=20;
-toast("🎉 ممتاز +20 XP");
-save();
-updateUI();
-}
-}
-
-/* إنجازات */
-function achievements(){
-document.getElementById("content").innerHTML=`
-<div class="card">
-<h3>🏆 إنجازاتك</h3>
-<p>${wins>=5?"✔ حل 5 أسئلة": "❌ حل 5 أسئلة"}</p>
-<p>${level>=3?"✔ وصل مستوى 3": "❌ مستوى 3"}</p>
-<p>${xp>=100?"✔ جمع 100 XP": "❌ 100 XP"}</p>
-</div>
-`;
-}
-
-/* صوت */
-function playSound(ok){
-let audio = new Audio(ok?
-"https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg":
-"https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg");
-audio.play();
-}
-
-/* حفظ */
-function save(){
-localStorage.setItem("xp",xp);
-localStorage.setItem("level",level);
-localStorage.setItem("wins",wins);
-}
-
-/* تشغيل */
-home();
-
 </script>
 
 </body>
