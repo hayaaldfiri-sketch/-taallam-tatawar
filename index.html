@@ -11,56 +11,54 @@ body {
   background: #f5f5f5;
 }
 
-/* الهيدر */
+/* هيدر */
 .header {
   background: linear-gradient(to right, #7b2ff7, #f107a3);
   color: white;
-  padding: 25px;
-  border-radius: 0 0 20px 20px;
+  padding: 20px;
+  text-align: center;
 }
 
-/* الحاوية */
+/* قائمة */
+.menu {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.menu button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* محتوى */
 .container {
   padding: 20px;
 }
 
-/* الكروت */
 .card {
   background: white;
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
 }
 
 /* زر */
-button {
+.btn {
   width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
+  padding: 10px;
   background: #7b2ff7;
   color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* شريط التقدم */
-.progress {
-  height: 10px;
-  background: #ddd;
+  border: none;
   border-radius: 10px;
-  overflow: hidden;
+  margin-top: 10px;
 }
 
-.progress-bar {
-  height: 100%;
-  width: 20%;
-  background: #7b2ff7;
-  transition: 0.3s;
-}
-
-/* إخفاء الصفحات */
+/* اخفاء */
 .hidden {
   display: none;
 }
@@ -69,67 +67,45 @@ button {
 .option {
   background: #eee;
   padding: 10px;
-  border-radius: 10px;
   margin: 5px 0;
+  border-radius: 10px;
   cursor: pointer;
 }
 
-.option:hover {
-  background: #ddd;
-}
+.correct { background: green; color: white; }
+.wrong { background: red; color: white; }
 
-.correct {
-  background: #4caf50 !important;
-  color: white;
-}
-
-.wrong {
-  background: #f44336 !important;
-  color: white;
+/* اشكال */
+.shape {
+  font-size: 30px;
+  margin: 10px;
+  cursor: pointer;
 }
 </style>
 
 <script>
-let step = 0;
-let progress = 20;
-
-function startLesson() {
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("lesson").classList.remove("hidden");
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
 }
 
-function nextStep() {
-  step++;
-  progress += 20;
-  document.getElementById("bar").style.width = progress + "%";
-
-  const content = document.getElementById("lessonContent");
-
-  if(step == 1){
-    content.innerHTML = "📌 المعلومة الصحيحة تحتاج دليل موثوق.";
-  }
-  else if(step == 2){
-    content.innerHTML = "📌 لا تصدق كل ما تشوفه في الإنترنت.";
-  }
-  else if(step == 3){
-    content.innerHTML = `
-    <h3>🧠 اختبار سريع</h3>
-    <div class="option" onclick="check(this,true)">مصدر موثوق</div>
-    <div class="option" onclick="check(this,false)">إشاعة</div>
-    `;
-  }
-  else {
-    content.innerHTML = "🎉 أحسنت! انتهى الدرس";
-  }
-}
-
-function check(el, correct){
+/* اختبار */
+function checkAnswer(el, correct){
   if(correct){
     el.classList.add("correct");
-    alert("✔ إجابة صحيحة!");
+    alert("✔ صح!");
   } else {
     el.classList.add("wrong");
-    alert("❌ حاول مرة أخرى");
+    alert("❌ خطأ");
+  }
+}
+
+/* نشاط */
+function checkShape(type){
+  if(type === "circle"){
+    alert("✔ صح هذا دائرة");
+  } else {
+    alert("❌ هذا ليس دائرة");
   }
 }
 </script>
@@ -138,52 +114,64 @@ function check(el, correct){
 
 <body>
 
-<!-- الصفحة الرئيسية -->
-<div id="home">
-  <div class="header">
-    <h2>👋 مرحباً</h2>
-    <p>استمر في تطوير مهاراتك 💜</p>
-  </div>
+<div class="header">
+  <h2>🎓 تعلم وتطور</h2>
+</div>
 
-  <div class="container">
+<!-- القائمة -->
+<div class="menu">
+  <button onclick="showPage('home')">🏠 الرئيسية</button>
+  <button onclick="showPage('lesson')">📚 درس</button>
+  <button onclick="showPage('quiz')">🧠 اختبار</button>
+  <button onclick="showPage('activity')">🎯 نشاط</button>
+</div>
 
-    <div class="card">
-      <h3>📊 نسبة التقدم</h3>
-      <div class="progress">
-        <div id="bar" class="progress-bar"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎯 المهام</h3>
-      <ul>
-        <li>✔ مشاهدة درس</li>
-        <li>⬜ حل اختبار</li>
-        <li>⬜ قراءة ملخص</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>📚 درس اليوم</h3>
-      <p>التفكير الناقد</p>
-      <button onclick="startLesson()">ابدأ</button>
-    </div>
-
+<!-- الرئيسية -->
+<div id="home" class="page container">
+  <div class="card">
+    <h3>👋 مرحباً</h3>
+    <p>ابدأ رحلتك التعليمية 🚀</p>
   </div>
 </div>
 
-<!-- صفحة الدرس -->
-<div id="lesson" class="hidden container">
-
+<!-- الدرس -->
+<div id="lesson" class="page container hidden">
   <div class="card">
-    <h2>📘 الدرس</h2>
-    <p id="lessonContent">
-      التفكير الناقد هو تحليل المعلومات قبل تصديقها.
-    </p>
-
-    <button onclick="nextStep()">التالي</button>
+    <h3>📘 التفكير الناقد</h3>
+    <p>هو تحليل المعلومات قبل تصديقها.</p>
+    <p>✔ اسأل: هل المصدر موثوق؟</p>
+    <p>✔ هل يوجد دليل؟</p>
   </div>
+</div>
 
+<!-- اختبار رياضيات -->
+<div id="quiz" class="page container hidden">
+  <div class="card">
+    <h3>🧠 اختبار رياضيات</h3>
+    <p>كم ناتج 5 + 3 ؟</p>
+
+    <div class="option" onclick="checkAnswer(this,false)">6</div>
+    <div class="option" onclick="checkAnswer(this,true)">8</div>
+    <div class="option" onclick="checkAnswer(this,false)">9</div>
+
+    <p>كم ناتج 10 - 4 ؟</p>
+
+    <div class="option" onclick="checkAnswer(this,false)">3</div>
+    <div class="option" onclick="checkAnswer(this,true)">6</div>
+    <div class="option" onclick="checkAnswer(this,false)">8</div>
+  </div>
+</div>
+
+<!-- نشاط -->
+<div id="activity" class="page container hidden">
+  <div class="card">
+    <h3>🎯 نشاط: اختر الدائرة</h3>
+
+    <div class="shape" onclick="checkShape('square')">⬜</div>
+    <div class="shape" onclick="checkShape('circle')">⚪</div>
+    <div class="shape" onclick="checkShape('triangle')">🔺</div>
+
+  </div>
 </div>
 
 </body>
