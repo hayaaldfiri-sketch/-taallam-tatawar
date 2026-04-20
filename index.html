@@ -3,26 +3,110 @@
 <head>
 <meta charset="UTF-8">
 <title>تعلم تطور</title>
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.header {
+  background: linear-gradient(to right, #7b5cff, #a18dff);
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.progress {
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #7b5cff;
+  width: 60%;
+}
+
+button {
+  background: #7b5cff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+#app { display:none; }
+</style>
 </head>
 
-<body style="text-align:center; font-family:Arial; padding-top:100px;">
+<body>
 
-<h2>🔒 دخول خاص</h2>
-<input type="password" id="pass" placeholder="كلمة المرور">
-<br><br>
-<button onclick="check()">دخول</button>
+<!-- تسجيل الدخول -->
+<div class="container" id="login">
+  <h2>🔒 دخول خاص</h2>
+  <input type="password" id="pass" placeholder="كلمة المرور">
+  <br><br>
+  <button onclick="check()">دخول</button>
+</div>
 
-<div id="content" style="display:none;">
-  <h1>🚀 مرحباً بك في تعلم تطور</h1>
-  <p>تم الدخول بنجاح ✔️</p>
+<!-- التطبيق -->
+<div id="app">
+
+<div class="header">
+  <h2>👋 مرحباً هيا</h2>
+  <p>استمر في تطوير مهاراتك 💜</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>📊 نسبة التقدم</h3>
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+    <p>60%</p>
+  </div>
+
+  <div class="card">
+    <h3>🎯 المهام اليومية</h3>
+    <ul>
+      <li>✔️ مشاهدة درس</li>
+      <li>⬜ حل اختبار</li>
+      <li>⬜ قراءة ملخص</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📚 نشاط تعليمي</h3>
+    <p>تعلم تحليل المعلومات والتفكير الناقد</p>
+    <button onclick="alert('بدأ الدرس!')">ابدأ</button>
+  </div>
+
+</div>
+
 </div>
 
 <script>
 function check() {
   var password = document.getElementById("pass").value;
-  
+
   if(password === "1234") {
-    document.getElementById("content").style.display = "block";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("app").style.display = "block";
   } else {
     alert("كلمة المرور غلط");
   }
