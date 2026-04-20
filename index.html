@@ -1,184 +1,220 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تعلم وتطور</title>
+<title>تطبيق تعلم</title>
 
 <style>
-body {
-  font-family: Arial;
-  margin: 0;
-  background: #f5f5f5;
-}
-
-/* شاشة */
-.screen {
-  display: none;
-  padding: 20px;
-}
-.active {
-  display: block;
-}
+body{font-family:Arial;background:#f5f5f5;margin:0}
 
 /* هيدر */
-.header {
-  background: linear-gradient(to right, #7b5cff, #a58bff);
-  color: white;
-  padding: 20px;
-  border-radius: 0 0 20px 20px;
+.header{
+background:linear-gradient(to right,#7b5cff,#9b7bff);
+color:white;padding:20px;text-align:center;
+border-radius:0 0 25px 25px;
 }
 
 /* كروت */
-.card {
-  background: white;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 15px;
+.card{
+background:white;margin:15px;padding:15px;
+border-radius:15px;
 }
 
 /* زر */
-button {
-  background: #7b5cff;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  width: 100%;
-  margin-top: 10px;
+button{
+width:100%;padding:12px;margin-top:10px;
+border:none;border-radius:10px;
+background:linear-gradient(to right,#7b5cff,#9b7bff);
+color:white;font-size:16px;
 }
 
-/* القائمة */
-.nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
+/* تقدم */
+.progress{background:#ddd;height:10px;border-radius:10px}
+.bar{background:#7b5cff;height:100%;width:0%}
+
+/* ناف بار */
+.nav{
+position:fixed;bottom:0;width:100%;
+display:flex;background:white;
+}
+.nav button{flex:1;border-radius:0}
+
+/* سحب */
+.box{
+width:70px;height:70px;
+border-radius:10px;
+display:inline-block;margin:10px;
 }
 
-/* progress */
-.progress {
-  height: 10px;
-  background: #ddd;
-  border-radius: 10px;
-}
-.progress div {
-  height: 100%;
-  background: #7b5cff;
-  width: 60%;
+.drop{
+width:80px;height:80px;
+border:2px dashed #aaa;
+display:inline-block;margin:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- شاشة ترحيب -->
-<div class="screen active" id="welcome">
-  <div class="header">
-    <h2>👋 مرحباً بك</h2>
-    <p>ابدأ رحلتك في التعلم</p>
-  </div>
-
-  <button onclick="go('home')">ابدأ الآن</button>
+<div class="header">
+<h2>👋 مرحباً بك</h2>
+<p>ابدأ رحلتك التعليمية</p>
 </div>
 
-<!-- الرئيسية -->
-<div class="screen" id="home">
-  <div class="header">
-    <h2>👋 أهلاً</h2>
-    <p>استمر في تطوير مهاراتك</p>
-  </div>
-
-  <div class="card">
-    <h3>📊 التقدم</h3>
-    <div class="progress"><div></div></div>
-    <p>60%</p>
-  </div>
-
-  <div class="card">
-    <h3>🎯 الأهداف</h3>
-    <ul>
-      <li>تعلم HTML</li>
-      <li>إنهاء درس</li>
-      <li>حل اختبار</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>📚 درس</h3>
-    <p>تعلم أساسيات التفكير</p>
-    <button onclick="go('lesson')">ابدأ</button>
-  </div>
+<div class="card">
+<h3>📊 تقدمك</h3>
+<div class="progress"><div id="bar" class="bar"></div></div>
+<p id="score">النقاط: 0</p>
 </div>
 
-<!-- الدرس -->
-<div class="screen" id="lesson">
-  <div class="header">
-    <h2>📘 الدرس</h2>
-  </div>
-
-  <div class="card">
-    <p>التفكير التحليلي هو فهم المشكلة وتقسيمها.</p>
-  </div>
-
-  <button onclick="go('quiz')">ابدأ الاختبار</button>
-</div>
-
-<!-- اختبار -->
-<div class="screen" id="quiz">
-  <div class="header">
-    <h2>🧠 اختبار رياضي</h2>
-  </div>
-
-  <div class="card">
-    <p>كم 5 + 3 ؟</p>
-    <button onclick="answer(8)">8</button>
-    <button onclick="answer(6)">6</button>
-  </div>
-
-  <div class="card">
-    <p>كم 10 × 2 ؟</p>
-    <button onclick="answer(20)">20</button>
-    <button onclick="answer(15)">15</button>
-  </div>
-</div>
-
-<!-- نشاط -->
-<div class="screen" id="game">
-  <div class="header">
-    <h2>🎮 نشاط</h2>
-  </div>
-
-  <div class="card">
-    <p>اختر الشكل الصحيح</p>
-    <button onclick="alert('صح!')">🔵</button>
-    <button onclick="alert('خطأ')">🔺</button>
-  </div>
-</div>
+<!-- الشاشة -->
+<div id="content"></div>
 
 <!-- القائمة -->
 <div class="nav">
-  <button onclick="go('home')">🏠</button>
-  <button onclick="go('quiz')">🧠</button>
-  <button onclick="go('game')">🎮</button>
+<button onclick="showHome()">🏠</button>
+<button onclick="showQuiz()">🧠</button>
+<button onclick="showGame()">🎮</button>
 </div>
 
 <script>
-function go(id){
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+
+let score = localStorage.getItem("score") || 0;
+let level = localStorage.getItem("level") || 1;
+document.getElementById("score").innerText="النقاط: "+score;
+
+/* الصفحة الرئيسية */
+function showHome(){
+document.getElementById("content").innerHTML=`
+<div class="card">
+<h3>🎯 الأهداف</h3>
+<p>✔ حل 5 مسائل</p>
+<p>✔ لعب نشاط</p>
+</div>
+
+<div class="card">
+<h3>📚 المستويات</h3>
+<button onclick="startQuiz(1)">سهل</button>
+${level>=2?'<button onclick="startQuiz(2)">متوسط</button>':''}
+${level>=3?'<button onclick="startQuiz(3)">صعب</button>':''}
+</div>
+`;
 }
 
-function answer(x){
-  if(x === 8 || x === 20){
-    alert("إجابة صحيحة 🎉");
-  } else {
-    alert("حاول مرة أخرى ❌");
-  }
+/* الاختبار */
+let questions=[];let answered=0;
+
+function startQuiz(lvl){
+answered=0;
+
+if(lvl==1){
+questions=[
+{q:"2+3",a:5,b:6,c:5},
+{q:"4+4",a:8,b:6,c:8}
+];
 }
+if(lvl==2){
+questions=[
+{q:"5×3",a:15,b:20,c:15},
+{q:"12÷3",a:4,b:6,c:4}
+];
+}
+if(lvl==3){
+questions=[
+{q:"15×2",a:30,b:25,c:30},
+{q:"20+10",a:30,b:25,c:30}
+];
+}
+
+showQuiz();
+}
+
+function showQuiz(){
+let html="";
+questions.forEach((q,i)=>{
+html+=`
+<div class="card">
+<p>كم ${q.q} ؟</p>
+<button onclick="check(this,${q.c},${q.a})">${q.a}</button>
+<button onclick="check(this,${q.c},${q.b})">${q.b}</button>
+</div>`;
+});
+document.getElementById("content").innerHTML=html;
+}
+
+function check(btn,correct,val){
+if(btn.disabled)return;
+
+let parent=btn.parentElement;
+parent.querySelectorAll("button").forEach(b=>b.disabled=true);
+
+if(val==correct){
+btn.style.background="green";
+score=parseInt(score)+2;
+}else{
+btn.style.background="red";
+}
+
+answered++;
+save();
+updateProgress();
+
+if(answered==questions.length){
+if(level<3) level++;
+save();
+}
+}
+
+/* لعبة سحب */
+function showGame(){
+document.getElementById("content").innerHTML=`
+<div class="card">
+<h3>🎮 وزع الأشكال</h3>
+
+<div draggable="true" ondragstart="drag(event)" id="circle" class="box" style="background:red"></div>
+<div draggable="true" ondragstart="drag(event)" id="square" class="box" style="background:blue"></div>
+
+<br>
+
+<div class="drop" ondrop="drop(event)" ondragover="allowDrop(event)" data-type="circle"></div>
+<div class="drop" ondrop="drop(event)" ondragover="allowDrop(event)" data-type="square"></div>
+
+</div>
+`;
+}
+
+function allowDrop(e){e.preventDefault()}
+function drag(e){e.dataTransfer.setData("id",e.target.id)}
+
+function drop(e){
+e.preventDefault();
+let id=e.dataTransfer.getData("id");
+
+if(e.target.dataset.type==id){
+e.target.appendChild(document.getElementById(id));
+score=parseInt(score)+5;
+save();
+updateProgress();
+}
+}
+
+/* حفظ */
+function save(){
+localStorage.setItem("score",score);
+localStorage.setItem("level",level);
+document.getElementById("score").innerText="النقاط: "+score;
+}
+
+/* التقدم */
+function updateProgress(){
+let percent=(score/50)*100;
+document.getElementById("bar").style.width=percent+"%";
+}
+
+/* بداية */
+showHome();
+updateProgress();
+
 </script>
 
 </body>
