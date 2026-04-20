@@ -23,7 +23,8 @@ box-shadow:0 10px 20px rgba(0,0,0,0.05)
 /* زر */
 .btn{
 width:100%;padding:12px;margin:5px 0;border:none;border-radius:12px;
-background:linear-gradient(45deg,#6a5af9,#8364ff);color:white
+background:linear-gradient(45deg,#6a5af9,#8364ff);color:white;
+font-size:16px
 }
 
 /* صفحات */
@@ -32,7 +33,7 @@ background:linear-gradient(45deg,#6a5af9,#8364ff);color:white
 
 /* اشكال */
 .circle,.square{
-width:80px;height:80px;margin:20px auto
+width:80px;height:80px;margin:20px auto;cursor:pointer
 }
 
 .circle{
@@ -71,21 +72,10 @@ style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
 <button class="btn" onclick="saveName()">حفظ الاسم</button>
 </div>
 
-<div class="card" onclick="go('quiz')">
-📊 اختبار عشوائي
-</div>
-
-<div class="card" onclick="go('shapes')">
-🎮 لعبة الأشكال
-</div>
-
-<div class="card" onclick="go('video')">
-🎥 شروحات
-</div>
-
-<div class="card" onclick="go('summary')">
-📚 تلخيص
-</div>
+<div class="card" onclick="go('quiz')">📊 اختبار عشوائي</div>
+<div class="card" onclick="go('shapes')">🎮 لعبة الأشكال</div>
+<div class="card" onclick="go('video')">🎥 شروحات</div>
+<div class="card" onclick="go('summary')">📚 تلخيص</div>
 
 </div>
 
@@ -95,8 +85,11 @@ style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
 
 <div class="card">
 <p id="question"></p>
-<button class="btn" onclick="answer(true)">✔</button>
-<button class="btn" onclick="answer(false)">❌</button>
+
+<button class="btn" id="opt1" onclick="checkAnswer(this)"></button>
+<button class="btn" id="opt2" onclick="checkAnswer(this)"></button>
+<button class="btn" id="opt3" onclick="checkAnswer(this)"></button>
+
 </div>
 
 <p style="text-align:center">النقاط: <span id="score">0</span></p>
@@ -108,7 +101,7 @@ style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
 <div id="shapes" class="page">
 <div class="header"><h2>🎮 الأشكال</h2></div>
 
-<p style="text-align:center" id="shapeQ">اضغط على الدائرة</p>
+<p style="text-align:center" id="shapeQ"></p>
 
 <div class="circle" onclick="shape('circle')"></div>
 <div class="square" onclick="shape('square')"></div>
@@ -124,7 +117,7 @@ style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
 
 <div class="card">
 <iframe width="100%" height="200"
-src="https://www.youtube.com/embed/8jVhR8Kz7B0"
+src="https://www.youtube.com/embed/kM0pZ4sM8g8"
 frameborder="0" allowfullscreen></iframe>
 </div>
 
@@ -137,10 +130,12 @@ frameborder="0" allowfullscreen></iframe>
 
 <div class="card">
 <table border="1" width="100%" style="text-align:center">
-<tr><th>×</th><th>1</th><th>2</th><th>3</th></tr>
-<tr><td>1</td><td>1</td><td>2</td><td>3</td></tr>
-<tr><td>2</td><td>2</td><td>4</td><td>6</td></tr>
-<tr><td>3</td><td>3</td><td>6</td><td>9</td></tr>
+<tr><th>×</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>1</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+<tr><td>2</td><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
+<tr><td>3</td><td>3</td><td>6</td><td>9</td><td>12</td><td>15</td></tr>
+<tr><td>4</td><td>4</td><td>8</td><td>12</td><td>16</td><td>20</td></tr>
+<tr><td>5</td><td>5</td><td>10</td><td>15</td><td>20</td><td>25</td></tr>
 </table>
 </div>
 
@@ -167,7 +162,7 @@ let name=document.getElementById("nameInput").value;
 document.getElementById("userName").innerText=name;
 }
 
-/* اختبار عشوائي */
+/* اختبار */
 function newQuestion(){
 let a=Math.floor(Math.random()*10);
 let b=Math.floor(Math.random()*10);
@@ -179,11 +174,26 @@ document.getElementById("question").innerText=`كم ${a} + ${b} ؟`;
 correctAnswer=a*b;
 document.getElementById("question").innerText=`كم ${a} × ${b} ؟`;
 }
+
+/* خيارات */
+let options=[correctAnswer,
+correctAnswer+1,
+correctAnswer-1];
+
+options.sort(()=>Math.random()-0.5);
+
+document.getElementById("opt1").innerText=options[0];
+document.getElementById("opt2").innerText=options[1];
+document.getElementById("opt3").innerText=options[2];
 }
 
-function answer(correct){
-let userCorrect = correctAnswer==correctAnswer; // صح
+function checkAnswer(btn){
+let chosen=Number(btn.innerText);
+
+if(chosen===correctAnswer){
 score+=2;
+}
+
 document.getElementById("score").innerText=score;
 newQuestion();
 }
