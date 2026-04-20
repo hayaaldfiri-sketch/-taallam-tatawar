@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تعلم تطور</title>
+</head>
+
+<body style="text-align:center; font-family:Arial; padding-top:100px;">
+
+<h2>🔒 دخول خاص</h2>
+<input type="password" id="pass" placeholder="كلمة المرور">
+<br><br>
+<button onclick="check()">دخول</button>
+
+<div id="content" style="display:none;">
+  <h1>🚀 مرحباً بك في تعلم تطور</h1>
+  <p>تم الدخول بنجاح ✔️</p>
+</div>
+
+<script>
+function check() {
+  var password = document.getElementById("pass").value;
+  
+  if(password === "1234") {
+    document.getElementById("content").style.display = "block";
+  } else {
+    alert("كلمة المرور غلط");
+  }
+}
+</script>
+
+</body>
+</html>
