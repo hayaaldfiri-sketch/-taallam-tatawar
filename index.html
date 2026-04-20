@@ -6,141 +6,170 @@
 <title>تطبيق برمجة</title>
 
 <style>
-body {
+body{
   margin:0;
-  font-family: Arial;
+  font-family:Arial;
   background:#f5f6fa;
 }
 
 /* هيدر */
-.header {
-  background: linear-gradient(45deg,#6a5af9,#8364ff);
+.header{
+  background:linear-gradient(45deg,#6a5af9,#8364ff);
   color:white;
   padding:20px;
   border-radius:0 0 25px 25px;
 }
 
-/* كروت */
-.card {
-  background:white;
+/* كرت الترحيب */
+.welcome{
+  background:linear-gradient(45deg,#6a5af9,#8364ff);
   margin:15px;
-  padding:15px;
+  padding:20px;
   border-radius:20px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.05);
+  color:white;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  transition:0.3s;
 }
-.card:hover { transform:scale(1.03); }
 
-.icon {
-  width:50px;
-  height:50px;
-  border-radius:15px;
+/* كروت */
+.card{
+  background:white;
+  margin:10px 15px;
+  padding:15px;
+  border-radius:20px;
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  justify-content:center;
-  color:white;
-  font-size:22px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.05);
 }
 
-/* ازرار */
-.btn {
+/* شبكة */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:10px;
+}
+
+.mini{
+  background:white;
+  border-radius:15px;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.mini img{
+  width:50px;
+}
+
+/* زر */
+.btn{
   width:100%;
   padding:12px;
-  margin:8px 0;
+  margin:5px 0;
   border:none;
   border-radius:12px;
   background:linear-gradient(45deg,#6a5af9,#8364ff);
   color:white;
-  font-size:16px;
 }
 
-/* اخفاء الصفحات */
-.page { display:none; }
-.active { display:block; }
+/* صفحات */
+.page{display:none;}
+.active{display:block;}
 
 /* تقدم */
-.progress {
+.progress{
   background:#ddd;
   border-radius:20px;
   overflow:hidden;
 }
-.bar {
+.bar{
   height:10px;
   width:0%;
-  background:#6a5af9;
+  background:#fff;
 }
 
 /* اشكال */
-.circle, .square {
+.circle,.square{
   width:80px;
   height:80px;
   margin:20px auto;
 }
 
-.circle {
+.circle{
   background:#6a5af9;
   border-radius:50%;
   animation:spin 3s infinite linear;
 }
 
-.square {
+.square{
   background:#ff6584;
   animation:bounce 2s infinite;
 }
 
 /* حركات */
-@keyframes spin {
-  0% {transform:rotate(0);}
-  100% {transform:rotate(360deg);}
+@keyframes spin{
+  0%{transform:rotate(0)}
+  100%{transform:rotate(360deg)}
 }
 
-@keyframes bounce {
-  0%,100% {transform:translateY(0);}
-  50% {transform:translateY(-20px);}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- الصفحة الرئيسية -->
+<!-- الرئيسية -->
 <div id="home" class="page active">
 
 <div class="header">
-  <h2>💻 برمجة - حياة الدفيري</h2>
-  <p>ابدأ رحلتك التعليمية 🚀</p>
+<h2>💻 برمجة - حياة</h2>
+<p>استمر في تطوير مهاراتك 🚀</p>
 </div>
+
+<div class="welcome">
+<div>
+<h3>هدفك اليوم</h3>
+<p>تعلم مهارة جديدة</p>
+<div class="progress"><div id="mainProgress" class="bar"></div></div>
+</div>
+<div style="font-size:40px;">🎯</div>
+</div>
+
+<h3 style="padding:10px">استكمال</h3>
 
 <div class="card" onclick="go('math')">
-  <div>
-    <h3>اختبار رياضي</h3>
-    <p>سهل - متوسط - صعب</p>
-  </div>
-  <div class="icon" style="background:#6a5af9">🧠</div>
+<div>
+<h4>اختبار رياضي</h4>
+<p>سهل - متوسط - صعب</p>
+</div>
+<div>🧠</div>
 </div>
 
-<div class="card" onclick="go('shapes')">
-  <div>
-    <h3>لعبة الأشكال</h3>
-    <p>اختر الشكل الصحيح</p>
-  </div>
-  <div class="icon" style="background:#ff6584">🔷</div>
+<h3 style="padding:10px">الدروس</h3>
+
+<div class="grid">
+
+<div class="mini" onclick="go('shapes')">
+<img src="https://cdn-icons-png.flaticon.com/512/2721/2721293.png">
+<p>الأشكال</p>
 </div>
 
-<div class="card" onclick="go('goals')">
-  <div>
-    <h3>الأهداف</h3>
-    <p>تقدمك اليومي</p>
-  </div>
-  <div class="icon" style="background:#00c9a7">🎯</div>
+<div class="mini" onclick="go('goals')">
+<img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+<p>الأهداف</p>
 </div>
 
 </div>
 
-<!-- الرياضيات -->
+</div>
+
+<!-- اختبار -->
 <div id="math" class="page">
 <div class="header"><h2>🧠 اختبار</h2></div>
 
@@ -164,7 +193,7 @@ body {
 
 <!-- الاشكال -->
 <div id="shapes" class="page">
-<div class="header"><h2>🎮 لعبة الأشكال</h2></div>
+<div class="header"><h2>🎮 الأشكال</h2></div>
 
 <p style="text-align:center">اضغط على الدائرة</p>
 
@@ -176,7 +205,7 @@ body {
 <button class="btn" onclick="go('home')">رجوع</button>
 </div>
 
-<!-- الأهداف -->
+<!-- اهداف -->
 <div id="goals" class="page">
 <div class="header"><h2>🎯 الأهداف</h2></div>
 
@@ -188,50 +217,47 @@ body {
 </div>
 
 <script>
-let score = 0;
-let answered = 0;
-let shapeScore = 0;
+let score=0;
+let answered=0;
+let shapeScore=0;
 
-function go(page){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(page).classList.add("active");
+function go(p){
+document.querySelectorAll(".page").forEach(e=>e.classList.remove("active"));
+document.getElementById(p).classList.add("active");
 }
 
-function check(btn, correct){
-  if(btn.disabled) return;
+function check(btn,correct){
+if(btn.disabled)return;
 
-  if(correct){
-    btn.style.background="green";
-    score+=2;
-  } else {
-    btn.style.background="red";
-  }
+if(correct){
+btn.style.background="green";
+score+=2;
+}else{
+btn.style.background="red";
+}
 
-  btn.disabled=true;
-  answered++;
+btn.disabled=true;
+answered++;
 
-  document.getElementById("score").innerText=score;
+document.getElementById("score").innerText=score;
 
-  let percent = (answered/2)*100;
-  document.getElementById("bar").style.width = percent+"%";
+let percent=(answered/2)*100;
+document.getElementById("bar").style.width=percent+"%";
 
-  if(answered===2){
-    setTimeout(()=>{
-      alert("انتهى المستوى!");
-      go('home');
-      answered=0;
-    },800);
-  }
+if(answered===2){
+setTimeout(()=>{
+go('home');
+answered=0;
+},800);
+}
 }
 
 function shape(correct){
-  if(correct){
-    shapeScore+=2;
-    alert("صح!");
-  } else {
-    alert("خطأ!");
-  }
-  document.getElementById("shapeScore").innerText=shapeScore;
+if(correct){
+shapeScore+=2;
+}else{}
+
+document.getElementById("shapeScore").innerText=shapeScore;
 }
 </script>
 
