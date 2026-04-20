@@ -3,121 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تعلم و تطور مع مريم</title>
+<title>تطبيق تعلم و تطور مع مريم</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f5f6fa;
-}
+body{margin:0;font-family:Arial;background:#f5f6fa}
 
 /* هيدر */
 .header{
-  background:linear-gradient(45deg,#6a5af9,#8364ff);
-  color:white;
-  padding:20px;
-  border-radius:0 0 25px 25px;
-}
-
-/* كرت الترحيب */
-.welcome{
-  background:linear-gradient(45deg,#6a5af9,#8364ff);
-  margin:15px;
-  padding:20px;
-  border-radius:20px;
-  color:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+background:linear-gradient(45deg,#6a5af9,#8364ff);
+color:white;padding:20px;border-radius:0 0 25px 25px
 }
 
 /* كروت */
 .card{
-  background:white;
-  margin:10px 15px;
-  padding:15px;
-  border-radius:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 10px 20px rgba(0,0,0,0.05);
-}
-
-/* شبكة */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  padding:10px;
-}
-
-.mini{
-  background:white;
-  border-radius:15px;
-  padding:15px;
-  text-align:center;
-  box-shadow:0 5px 15px rgba(0,0,0,0.05);
-}
-
-.mini img{
-  width:50px;
+background:white;margin:10px 15px;padding:15px;border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,0.05)
 }
 
 /* زر */
 .btn{
-  width:100%;
-  padding:12px;
-  margin:5px 0;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(45deg,#6a5af9,#8364ff);
-  color:white;
+width:100%;padding:12px;margin:5px 0;border:none;border-radius:12px;
+background:linear-gradient(45deg,#6a5af9,#8364ff);color:white
 }
 
 /* صفحات */
-.page{display:none;}
-.active{display:block;}
-
-/* تقدم */
-.progress{
-  background:#ddd;
-  border-radius:20px;
-  overflow:hidden;
-}
-.bar{
-  height:10px;
-  width:0%;
-  background:#fff;
-}
+.page{display:none}
+.active{display:block}
 
 /* اشكال */
 .circle,.square{
-  width:80px;
-  height:80px;
-  margin:20px auto;
+width:80px;height:80px;margin:20px auto
 }
 
 .circle{
-  background:#6a5af9;
-  border-radius:50%;
-  animation:spin 3s infinite linear;
+background:#6a5af9;border-radius:50%;
+animation:spin 3s infinite linear
 }
 
 .square{
-  background:#ff6584;
-  animation:bounce 2s infinite;
+background:#ff6584;
+animation:bounce 2s infinite
 }
 
-/* حركات */
+/* انيميشن */
 @keyframes spin{
-  0%{transform:rotate(0)}
-  100%{transform:rotate(360deg)}
+0%{transform:rotate(0)}100%{transform:rotate(360deg)}
 }
-
 @keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
+0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}
 }
 </style>
 </head>
@@ -128,65 +61,45 @@ body{
 <div id="home" class="page active">
 
 <div class="header">
-<h2>💻 برمجة - حياة</h2>
-<p>استمر في تطوير مهاراتك 🚀</p>
+<h2>💻 برمجة</h2>
+<p>اهلاً <span id="userName">...</span> 👋</p>
 </div>
 
-<div class="welcome">
-<div>
-<h3>هدفك اليوم</h3>
-<p>تعلم مهارة جديدة</p>
-<div class="progress"><div id="mainProgress" class="bar"></div></div>
-</div>
-<div style="font-size:40px;">🎯</div>
+<div class="card">
+<input id="nameInput" placeholder="اكتب اسمك"
+style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
+<button class="btn" onclick="saveName()">حفظ الاسم</button>
 </div>
 
-<h3 style="padding:10px">استكمال</h3>
-
-<div class="card" onclick="go('math')">
-<div>
-<h4>اختبار رياضي</h4>
-<p>سهل - متوسط - صعب</p>
-</div>
-<div>🧠</div>
+<div class="card" onclick="go('quiz')">
+📊 اختبار عشوائي
 </div>
 
-<h3 style="padding:10px">الدروس</h3>
-
-<div class="grid">
-
-<div class="mini" onclick="go('shapes')">
-<img src="https://cdn-icons-png.flaticon.com/512/2721/2721293.png">
-<p>الأشكال</p>
+<div class="card" onclick="go('shapes')">
+🎮 لعبة الأشكال
 </div>
 
-<div class="mini" onclick="go('goals')">
-<img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
-<p>الأهداف</p>
+<div class="card" onclick="go('video')">
+🎥 شروحات
 </div>
 
+<div class="card" onclick="go('summary')">
+📚 تلخيص
 </div>
 
 </div>
 
 <!-- اختبار -->
-<div id="math" class="page">
+<div id="quiz" class="page">
 <div class="header"><h2>🧠 اختبار</h2></div>
 
 <div class="card">
-<p>كم 3 + 5 ؟</p>
-<button class="btn" onclick="check(this,true)">8</button>
-<button class="btn" onclick="check(this,false)">6</button>
+<p id="question"></p>
+<button class="btn" onclick="answer(true)">✔</button>
+<button class="btn" onclick="answer(false)">❌</button>
 </div>
 
-<div class="card">
-<p>كم 2 × 10 ؟</p>
-<button class="btn" onclick="check(this,true)">20</button>
-<button class="btn" onclick="check(this,false)">15</button>
-</div>
-
-<div class="progress"><div id="bar" class="bar"></div></div>
-<p>النقاط: <span id="score">0</span></p>
+<p style="text-align:center">النقاط: <span id="score">0</span></p>
 
 <button class="btn" onclick="go('home')">رجوع</button>
 </div>
@@ -195,70 +108,102 @@ body{
 <div id="shapes" class="page">
 <div class="header"><h2>🎮 الأشكال</h2></div>
 
-<p style="text-align:center">اضغط على الدائرة</p>
+<p style="text-align:center" id="shapeQ">اضغط على الدائرة</p>
 
-<div class="circle" onclick="shape(true)"></div>
-<div class="square" onclick="shape(false)"></div>
+<div class="circle" onclick="shape('circle')"></div>
+<div class="square" onclick="shape('square')"></div>
 
 <p style="text-align:center">النقاط: <span id="shapeScore">0</span></p>
 
 <button class="btn" onclick="go('home')">رجوع</button>
 </div>
 
-<!-- اهداف -->
-<div id="goals" class="page">
-<div class="header"><h2>🎯 الأهداف</h2></div>
+<!-- فيديو -->
+<div id="video" class="page">
+<div class="header"><h2>🎥 شرح الجمع</h2></div>
 
-<div class="card"><p>✔ مشاهدة درس</p></div>
-<div class="card"><p>⬜ حل اختبار</p></div>
-<div class="card"><p>⬜ قراءة ملخص</p></div>
+<div class="card">
+<iframe width="100%" height="200"
+src="https://www.youtube.com/embed/8jVhR8Kz7B0"
+frameborder="0" allowfullscreen></iframe>
+</div>
+
+<button class="btn" onclick="go('home')">رجوع</button>
+</div>
+
+<!-- تلخيص -->
+<div id="summary" class="page">
+<div class="header"><h2>📚 جدول الضرب</h2></div>
+
+<div class="card">
+<table border="1" width="100%" style="text-align:center">
+<tr><th>×</th><th>1</th><th>2</th><th>3</th></tr>
+<tr><td>1</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>2</td><td>2</td><td>4</td><td>6</td></tr>
+<tr><td>3</td><td>3</td><td>6</td><td>9</td></tr>
+</table>
+</div>
 
 <button class="btn" onclick="go('home')">رجوع</button>
 </div>
 
 <script>
 let score=0;
-let answered=0;
+let correctAnswer;
 let shapeScore=0;
+let shapeType="circle";
 
+/* تنقل */
 function go(p){
 document.querySelectorAll(".page").forEach(e=>e.classList.remove("active"));
 document.getElementById(p).classList.add("active");
+
+if(p==="quiz") newQuestion();
 }
 
-function check(btn,correct){
-if(btn.disabled)return;
+/* اسم */
+function saveName(){
+let name=document.getElementById("nameInput").value;
+document.getElementById("userName").innerText=name;
+}
 
-if(correct){
-btn.style.background="green";
-score+=2;
+/* اختبار عشوائي */
+function newQuestion(){
+let a=Math.floor(Math.random()*10);
+let b=Math.floor(Math.random()*10);
+
+if(Math.random()>0.5){
+correctAnswer=a+b;
+document.getElementById("question").innerText=`كم ${a} + ${b} ؟`;
 }else{
-btn.style.background="red";
+correctAnswer=a*b;
+document.getElementById("question").innerText=`كم ${a} × ${b} ؟`;
+}
 }
 
-btn.disabled=true;
-answered++;
-
+function answer(correct){
+let userCorrect = correctAnswer==correctAnswer; // صح
+score+=2;
 document.getElementById("score").innerText=score;
-
-let percent=(answered/2)*100;
-document.getElementById("bar").style.width=percent+"%";
-
-if(answered===2){
-setTimeout(()=>{
-go('home');
-answered=0;
-},800);
-}
+newQuestion();
 }
 
-function shape(correct){
-if(correct){
+/* اشكال */
+function newShape(){
+shapeType=Math.random()>0.5?"circle":"square";
+document.getElementById("shapeQ").innerText=
+shapeType==="circle"?"اضغط على الدائرة":"اضغط على المربع";
+}
+
+function shape(type){
+if(type===shapeType){
 shapeScore+=2;
-}else{}
-
-document.getElementById("shapeScore").innerText=shapeScore;
 }
+document.getElementById("shapeScore").innerText=shapeScore;
+newShape();
+}
+
+newShape();
 </script>
 
 </body>
