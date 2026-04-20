@@ -2,6 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تعلم وتطور</title>
 
 <style>
@@ -11,168 +12,174 @@ body {
   background: #f5f5f5;
 }
 
+/* شاشة */
+.screen {
+  display: none;
+  padding: 20px;
+}
+.active {
+  display: block;
+}
+
 /* هيدر */
 .header {
-  background: linear-gradient(to right, #7b2ff7, #f107a3);
+  background: linear-gradient(to right, #7b5cff, #a58bff);
   color: white;
   padding: 20px;
-  text-align: center;
+  border-radius: 0 0 20px 20px;
 }
 
-/* قائمة */
-.menu {
-  display: flex;
-  justify-content: space-around;
-  background: white;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.menu button {
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* محتوى */
-.container {
-  padding: 20px;
-}
-
+/* كروت */
 .card {
   background: white;
   padding: 15px;
+  margin-top: 15px;
   border-radius: 15px;
-  margin-bottom: 15px;
 }
 
 /* زر */
-.btn {
-  width: 100%;
-  padding: 10px;
-  background: #7b2ff7;
+button {
+  background: #7b5cff;
   color: white;
   border: none;
+  padding: 12px;
   border-radius: 10px;
+  width: 100%;
   margin-top: 10px;
 }
 
-/* اخفاء */
-.hidden {
-  display: none;
-}
-
-/* خيارات */
-.option {
-  background: #eee;
+/* القائمة */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
   padding: 10px;
-  margin: 5px 0;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
-.correct { background: green; color: white; }
-.wrong { background: red; color: white; }
-
-/* اشكال */
-.shape {
-  font-size: 30px;
-  margin: 10px;
-  cursor: pointer;
+/* progress */
+.progress {
+  height: 10px;
+  background: #ddd;
+  border-radius: 10px;
+}
+.progress div {
+  height: 100%;
+  background: #7b5cff;
+  width: 60%;
 }
 </style>
-
-<script>
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
-
-/* اختبار */
-function checkAnswer(el, correct){
-  if(correct){
-    el.classList.add("correct");
-    alert("✔ صح!");
-  } else {
-    el.classList.add("wrong");
-    alert("❌ خطأ");
-  }
-}
-
-/* نشاط */
-function checkShape(type){
-  if(type === "circle"){
-    alert("✔ صح هذا دائرة");
-  } else {
-    alert("❌ هذا ليس دائرة");
-  }
-}
-</script>
-
 </head>
 
 <body>
 
-<div class="header">
-  <h2>🎓 تعلم وتطور</h2>
-</div>
+<!-- شاشة ترحيب -->
+<div class="screen active" id="welcome">
+  <div class="header">
+    <h2>👋 مرحباً بك</h2>
+    <p>ابدأ رحلتك في التعلم</p>
+  </div>
 
-<!-- القائمة -->
-<div class="menu">
-  <button onclick="showPage('home')">🏠 الرئيسية</button>
-  <button onclick="showPage('lesson')">📚 درس</button>
-  <button onclick="showPage('quiz')">🧠 اختبار</button>
-  <button onclick="showPage('activity')">🎯 نشاط</button>
+  <button onclick="go('home')">ابدأ الآن</button>
 </div>
 
 <!-- الرئيسية -->
-<div id="home" class="page container">
+<div class="screen" id="home">
+  <div class="header">
+    <h2>👋 أهلاً</h2>
+    <p>استمر في تطوير مهاراتك</p>
+  </div>
+
   <div class="card">
-    <h3>👋 مرحباً</h3>
-    <p>ابدأ رحلتك التعليمية 🚀</p>
+    <h3>📊 التقدم</h3>
+    <div class="progress"><div></div></div>
+    <p>60%</p>
+  </div>
+
+  <div class="card">
+    <h3>🎯 الأهداف</h3>
+    <ul>
+      <li>تعلم HTML</li>
+      <li>إنهاء درس</li>
+      <li>حل اختبار</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📚 درس</h3>
+    <p>تعلم أساسيات التفكير</p>
+    <button onclick="go('lesson')">ابدأ</button>
   </div>
 </div>
 
 <!-- الدرس -->
-<div id="lesson" class="page container hidden">
-  <div class="card">
-    <h3>📘 التفكير الناقد</h3>
-    <p>هو تحليل المعلومات قبل تصديقها.</p>
-    <p>✔ اسأل: هل المصدر موثوق؟</p>
-    <p>✔ هل يوجد دليل؟</p>
+<div class="screen" id="lesson">
+  <div class="header">
+    <h2>📘 الدرس</h2>
   </div>
+
+  <div class="card">
+    <p>التفكير التحليلي هو فهم المشكلة وتقسيمها.</p>
+  </div>
+
+  <button onclick="go('quiz')">ابدأ الاختبار</button>
 </div>
 
-<!-- اختبار رياضيات -->
-<div id="quiz" class="page container hidden">
+<!-- اختبار -->
+<div class="screen" id="quiz">
+  <div class="header">
+    <h2>🧠 اختبار رياضي</h2>
+  </div>
+
   <div class="card">
-    <h3>🧠 اختبار رياضيات</h3>
-    <p>كم ناتج 5 + 3 ؟</p>
+    <p>كم 5 + 3 ؟</p>
+    <button onclick="answer(8)">8</button>
+    <button onclick="answer(6)">6</button>
+  </div>
 
-    <div class="option" onclick="checkAnswer(this,false)">6</div>
-    <div class="option" onclick="checkAnswer(this,true)">8</div>
-    <div class="option" onclick="checkAnswer(this,false)">9</div>
-
-    <p>كم ناتج 10 - 4 ؟</p>
-
-    <div class="option" onclick="checkAnswer(this,false)">3</div>
-    <div class="option" onclick="checkAnswer(this,true)">6</div>
-    <div class="option" onclick="checkAnswer(this,false)">8</div>
+  <div class="card">
+    <p>كم 10 × 2 ؟</p>
+    <button onclick="answer(20)">20</button>
+    <button onclick="answer(15)">15</button>
   </div>
 </div>
 
 <!-- نشاط -->
-<div id="activity" class="page container hidden">
+<div class="screen" id="game">
+  <div class="header">
+    <h2>🎮 نشاط</h2>
+  </div>
+
   <div class="card">
-    <h3>🎯 نشاط: اختر الدائرة</h3>
-
-    <div class="shape" onclick="checkShape('square')">⬜</div>
-    <div class="shape" onclick="checkShape('circle')">⚪</div>
-    <div class="shape" onclick="checkShape('triangle')">🔺</div>
-
+    <p>اختر الشكل الصحيح</p>
+    <button onclick="alert('صح!')">🔵</button>
+    <button onclick="alert('خطأ')">🔺</button>
   </div>
 </div>
+
+<!-- القائمة -->
+<div class="nav">
+  <button onclick="go('home')">🏠</button>
+  <button onclick="go('quiz')">🧠</button>
+  <button onclick="go('game')">🎮</button>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function answer(x){
+  if(x === 8 || x === 20){
+    alert("إجابة صحيحة 🎉");
+  } else {
+    alert("حاول مرة أخرى ❌");
+  }
+}
+</script>
 
 </body>
 </html>
