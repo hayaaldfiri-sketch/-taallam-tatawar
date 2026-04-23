@@ -1,219 +1,1596 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تعلم و تطور مع مريم</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>تعلم وتطور مع مريم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:Arial;background:#f5f6fa}
-
-/* هيدر */
-.header{
-background:linear-gradient(45deg,#6a5af9,#8364ff);
-color:white;padding:20px;border-radius:0 0 25px 25px
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* كروت */
-.card{
-background:white;margin:10px 15px;padding:15px;border-radius:20px;
-box-shadow:0 10px 20px rgba(0,0,0,0.05)
+:root {
+    --primary: #6C5CE7;
+    --primary-light: #A29BFE;
+    --primary-dark: #5B4BC4;
+    --secondary: #FDCB6E;
+    --danger: #FF7675;
+    --success: #00B894;
+    --info: #74B9FF;
+    --dark: #2D3436;
+    --gray: #636E72;
+    --light-gray: #F5F6FA;
+    --white: #FFFFFF;
 }
 
-/* زر */
-.btn{
-width:100%;padding:12px;margin:5px 0;border:none;border-radius:12px;
-background:linear-gradient(45deg,#6a5af9,#8364ff);color:white;
-font-size:16px
+body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--light-gray);
+    color: var(--dark);
+    overflow-x: hidden;
+    padding-bottom: 80px;
 }
 
-/* صفحات */
-.page{display:none}
-.active{display:block}
-
-/* اشكال */
-.circle,.square{
-width:80px;height:80px;margin:20px auto;cursor:pointer
+/* ====== الشريط العلوي ====== */
+.top-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
 }
 
-.circle{
-background:#6a5af9;border-radius:50%;
-animation:spin 3s infinite linear
+.top-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
 }
 
-.square{
-background:#ff6584;
-animation:bounce 2s infinite
+.top-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 150px;
+    height: 150px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
 }
 
-/* انيميشن */
-@keyframes spin{
-0%{transform:rotate(0)}100%{transform:rotate(360deg)}
+.header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
-@keyframes bounce{
-0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.3);
+    object-fit: cover;
+    background: var(--white);
+}
+
+.user-info h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.user-info p {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* شريط التقدم */
+.progress-section {
+    background: rgba(255,255,255,0.15);
+    border-radius: 15px;
+    padding: 12px 15px;
+    backdrop-filter: blur(10px);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--secondary), #E17055);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 60%;
+}
+
+/* ====== البحث ====== */
+.search-box {
+    margin: 15px 20px;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 45px 14px 15px;
+    border: none;
+    border-radius: 15px;
+    background: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    outline: none;
+}
+
+.search-box::after {
+    content: '🔍';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+/* ====== فئات الدورات ====== */
+.categories {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category-chip {
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 2px solid transparent;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+    color: var(--gray);
+}
+
+.category-chip.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+}
+
+/* ====== الكروت الرئيسية ====== */
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.section-title a {
+    color: var(--primary);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* كرت الدورة */
+.course-card {
+    background: var(--white);
+    margin: 0 20px 15px;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.course-card:active {
+    transform: scale(0.98);
+}
+
+.course-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.course-icon.purple { background: linear-gradient(135deg, #E8E0FF, #D6C8FF); }
+.course-icon.yellow { background: linear-gradient(135deg, #FFF3CD, #FFEAA7); }
+.course-icon.green { background: linear-gradient(135deg, #D4F5E9, #A8E6CF); }
+.course-icon.blue { background: linear-gradient(135deg, #D0E8FF, #A8D8FF); }
+.course-icon.pink { background: linear-gradient(135deg, #FFE0E6, #FFB8C9); }
+
+.course-info {
+    flex: 1;
+}
+
+.course-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.course-info p {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 8px;
+}
+
+.course-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.course-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* كروت الدورات المقترحة */
+.suggested-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.suggested-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.suggested-card:active {
+    transform: scale(0.95);
+}
+
+.suggested-card .img-box {
+    width: 100%;
+    height: 80px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.suggested-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.suggested-card p {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+/* ====== صفحات ====== */
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== صفحة الدورات ====== */
+.courses-list {
+    padding: 0 20px;
+}
+
+/* ====== صفحة المهام ====== */
+.tasks-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 0 0 30px 30px;
+}
+
+.task-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    overflow-x: auto;
+}
+
+.task-tab {
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 2px solid var(--light-gray);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.task-tab.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.task-item {
+    background: var(--white);
+    margin: 0 20px 12px;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.task-checkbox.done {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.task-checkbox.done::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+}
+
+.task-text {
+    flex: 1;
+}
+
+.task-text.done {
+    text-decoration: line-through;
+    color: var(--gray);
+}
+
+.streak-section {
+    background: var(--white);
+    margin: 20px;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.streak-days {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.day-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--light-gray);
+    color: var(--gray);
+}
+
+.day-circle.active {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.day-circle.today {
+    border: 3px solid var(--secondary);
+}
+
+/* ====== صفحة المجتمع ====== */
+.community-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    overflow-x: auto;
+}
+
+.community-card {
+    background: var(--white);
+    margin: 0 20px 15px;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.community-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.community-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* ====== صفحة ملفي ====== */
+.profile-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: 30px 20px;
+    border-radius: 0 0 30px 30px;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,0.3);
+    margin: 0 auto 15px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 20px;
+}
+
+.stat-box {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.stat-box .icon {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.stat-box .number {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.stat-box .label {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.profile-menu {
+    padding: 0 20px;
+}
+
+.menu-item {
+    background: var(--white);
+    margin-bottom: 10px;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    cursor: pointer;
+}
+
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+/* ====== صفحة الفيديو ====== */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 20px;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: none;
+}
+
+.video-info {
+    padding: 0 20px;
+}
+
+.video-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.video-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* ====== صفحة الاختبار ====== */
+.quiz-container {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.quiz-card {
+    background: var(--white);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.quiz-question {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--dark);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quiz-btn {
+    padding: 16px;
+    border: 2px solid var(--light-gray);
+    border-radius: 15px;
+    background: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.quiz-btn:hover, .quiz-btn:active {
+    border-color: var(--primary);
+    background: #F3F0FF;
+}
+
+.quiz-btn.correct {
+    background: #D4F5E9;
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.quiz-btn.wrong {
+    background: #FFE0E0;
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.quiz-score {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 20px 0;
+}
+
+/* ====== صفحة الأشكال ====== */
+.shapes-game {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.shape-target {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--primary);
+}
+
+.shapes-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.game-shape {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.game-shape:active {
+    transform: scale(0.9);
+}
+
+.shape-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+    animation: float 3s ease-in-out infinite;
+}
+
+.shape-square {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--danger), #FAB1A0);
+    box-shadow: 0 10px 30px rgba(255, 118, 117, 0.3);
+    animation: float 3s ease-in-out infinite 0.5s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* ====== صفحة التلخيص ====== */
+.summary-container {
+    padding: 20px;
+}
+
+.times-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+.times-table th, .times-table td {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.times-table th {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.times-table td:hover {
+    background: var(--primary-light);
+    color: var(--white);
+    transition: all 0.3s;
+}
+
+/* ====== التبويب السفلي ====== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 20px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+    border-radius: 25px 25px 0 0;
+    z-index: 1000;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 15px;
+    transition: all 0.3s;
+    color: var(--gray);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.nav-item .icon {
+    font-size: 22px;
+    transition: transform 0.3s;
+}
+
+.nav-item.active {
+    color: var(--primary);
+    background: rgba(108, 92, 231, 0.1);
+}
+
+.nav-item.active .icon {
+    transform: translateY(-3px);
+}
+
+/* ====== زر الرجوع ====== */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--white);
+    border: none;
+    border-radius: 15px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    margin: 15px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* ====== إشعارات ====== */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999;
+    transition: transform 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ====== أنيميشن عام ====== */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    body {
+        max-width: 430px;
+        margin: 0 auto;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+    }
 }
 </style>
 </head>
-
 <body>
 
-<!-- الرئيسية -->
+<!-- ========== الصفحة الرئيسية ========== -->
 <div id="home" class="page active">
 
-<div class="header">
-<h2>💻 برمجة</h2>
-<p>اهلاً <span id="userName">...</span> 👋</p>
+    <!-- الشريط العلوي -->
+    <div class="top-header">
+        <div class="header-content">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=maryam&backgroundColor=b6e3f4" class="avatar" alt="مريم">
+            <div class="user-info">
+                <h2>أهلاً <span id="userName">...</span> 👋</h2>
+                <p>أنت على الطريق الصحيح!<br>استمر وتعلم مهارات جديدة كل يوم</p>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress-header">
+                <span>📊 تعلم مهارة جديدة</span>
+                <span>60%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- البحث -->
+    <div class="search-box">
+        <input type="text" placeholder="ابحث عن دورة..." id="searchInput" onkeyup="searchCourses()">
+    </div>
+
+    <!-- فئات الدورات -->
+    <div class="categories">
+        <div class="category-chip active" onclick="filterCategory(this, 'all')">الكل</div>
+        <div class="category-chip" onclick="filterCategory(this, 'tech')">تقنية</div>
+        <div class="category-chip" onclick="filterCategory(this, 'design')">تصميم</div>
+        <div class="category-chip" onclick="filterCategory(this, 'lang')">لغات</div>
+        <div class="category-chip" onclick="filterCategory(this, 'business')">أكاديمية</div>
+    </div>
+
+    <!-- الدورات المستمرة -->
+    <div class="section-title">
+        <span>📚 الدورات المقترحة لك</span>
+        <a href="#" onclick="showToast('قريباً!')">عرض الكل</a>
+    </div>
+
+    <div class="suggested-grid">
+        <div class="suggested-card" onclick="go('video')">
+            <div class="img-box" style="background: linear-gradient(135deg, #E8E0FF, #D6C8FF);">💻</div>
+            <h4>أساسيات الحاسوب</h4>
+            <p>5 دروس</p>
+        </div>
+        <div class="suggested-card" onclick="go('video')">
+            <div class="img-box" style="background: linear-gradient(135deg, #D0E8FF, #A8D8FF);">💬</div>
+            <h4>مهارات التواصل</h4>
+            <p>4 دروس</p>
+        </div>
+    </div>
+
+    <!-- الدورات المتاحة -->
+    <div class="section-title">
+        <span>🎯 الدورات المتاحة</span>
+    </div>
+
+    <div id="coursesList">
+        <div class="course-card" data-category="tech" onclick="go('video')">
+            <div class="course-icon purple">🧠</div>
+            <div class="course-info">
+                <h3>مهارات التفكير الناقد</h3>
+                <p>تطوير قدراتك على تحليل المعلومات</p>
+                <div class="course-meta">
+                    <span>⏱ 5 دروس</span>
+                    <span>⭐ 4.8</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="tech" onclick="go('video')">
+            <div class="course-icon yellow">⏰</div>
+            <div class="course-info">
+                <h3>إدارة الوقت</h3>
+                <p>تعلم كيف تنظم يومك بكفاءة</p>
+                <div class="course-meta">
+                    <span>⏱ 4 دروس</span>
+                    <span>⭐ 4.6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="design" onclick="go('video')">
+            <div class="course-icon green">💻</div>
+            <div class="course-info">
+                <h3>أساسيات البرمجة</h3>
+                <p>ابدأ رحلتك في عالم البرمجة</p>
+                <div class="course-meta">
+                    <span>⏱ 5 دروس</span>
+                    <span>⭐ 4.9</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="lang" onclick="go('video')">
+            <div class="course-icon blue">🌐</div>
+            <div class="course-info">
+                <h3>مهارات التواصل</h3>
+                <p>تواصل بلغة واحترافية</p>
+                <div class="course-meta">
+                    <span>⏱ 4 دروس</span>
+                    <span>⭐ 4.7</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-card" data-category="design" onclick="go('video')">
+            <div class="course-icon pink">🎨</div>
+            <div class="course-info">
+                <h3>التصميم الإبداعي</h3>
+                <p>أطلق إبداعك في التصميم</p>
+                <div class="course-meta">
+                    <span>⏱ 5 دروس</span>
+                    <span>⭐ 4.5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ألعاب تعليمية -->
+    <div class="section-title">
+        <span>🎮 ألعاب تعليمية</span>
+    </div>
+
+    <div class="suggested-grid">
+        <div class="suggested-card" onclick="go('quiz')">
+            <div class="img-box" style="background: linear-gradient(135deg, #FFE0E6, #FFB8C9);">🧮</div>
+            <h4>اختبار الرياضيات</h4>
+            <p>اختبر مهاراتك</p>
+        </div>
+        <div class="suggested-card" onclick="go('shapes')">
+            <div class="img-box" style="background: linear-gradient(135deg, #FFF3CD, #FFEAA7);">🔷</div>
+            <h4>لعبة الأشكال</h4>
+            <p>تعرف على الأشكال</p>
+        </div>
+    </div>
+
 </div>
 
-<div class="card">
-<input id="nameInput" placeholder="اكتب اسمك"
-style="width:100%;padding:10px;border-radius:10px;border:1px solid #ccc">
-<button class="btn" onclick="saveName()">حفظ الاسم</button>
+<!-- ========== صفحة الدورات ========== -->
+<div id="courses" class="page">
+    <div class="top-header" style="border-radius: 0 0 30px 30px;">
+        <div class="header-content">
+            <h2>📚 الدورات</h2>
+        </div>
+    </div>
+    
+    <div class="search-box">
+        <input type="text" placeholder="ابحث عن دورة...">
+    </div>
+
+    <div class="courses-list" id="coursesPageList">
+        <!-- يتم ملؤها بالJavaScript -->
+    </div>
 </div>
 
-<div class="card" onclick="go('quiz')">📊 اختبار عشوائي</div>
-<div class="card" onclick="go('shapes')">🎮 لعبة الأشكال</div>
-<div class="card" onclick="go('video')">🎥 شروحات</div>
-<div class="card" onclick="go('summary')">📚 تلخيص</div>
+<!-- ========== صفحة المهام ========== -->
+<div id="tasks" class="page">
+    <div class="tasks-header">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>📋 المهام</h2>
+            <span style="font-size:24px;">→</span>
+        </div>
+    </div>
 
+    <div class="task-tabs">
+        <div class="task-tab active" onclick="filterTasks(this, 'daily')">اليومية</div>
+        <div class="task-tab" onclick="filterTasks(this, 'weekly')">الأسبوعية</div>
+        <div class="task-tab" onclick="filterTasks(this, 'monthly')">الشهرية</div>
+    </div>
+
+    <div class="task-item">
+        <div class="task-checkbox done" onclick="toggleTask(this)"></div>
+        <div class="task-text done">شاهد درس جديد</div>
+        <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
+    </div>
+
+    <div class="task-item">
+        <div class="task-checkbox" onclick="toggleTask(this)"></div>
+        <div class="task-text">أجب على اختبار</div>
+        <span style="color:var(--gray); font-size:12px;">+15 نقاط</span>
+    </div>
+
+    <div class="task-item">
+        <div class="task-checkbox" onclick="toggleTask(this)"></div>
+        <div class="task-text">اقرأ مقال تعليمي</div>
+        <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
+    </div>
+
+    <div class="task-item">
+        <div class="task-checkbox done" onclick="toggleTask(this)"></div>
+        <div class="task-text done">شارك في النقاش</div>
+        <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
+    </div>
+
+    <!-- سلسلة الإنجاز -->
+    <div class="streak-section">
+        <h3 style="margin-bottom:5px;">🔥 سلسلة الإنجاز</h3>
+        <p style="font-size:12px; color:var(--gray); margin-bottom:15px;">أكمل مهامك اليومية للحفاظ على السلسلة</p>
+        
+        <div class="streak-days">
+            <div class="day-circle active">أحد</div>
+            <div class="day-circle active">اثنين</div>
+            <div class="day-circle active">ثلاثاء</div>
+            <div class="day-circle active today">أربعاء</div>
+            <div class="day-circle">خميس</div>
+            <div class="day-circle">جمعة</div>
+            <div class="day-circle">سبت</div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color:white; padding:15px; border-radius:15px; margin-top:15px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="text-align:right;">
+                    <div style="font-weight:700;">تحدي الأسبوع 🏆</div>
+                    <div style="font-size:12px; opacity:0.9;">تعلم 5 دروس هذا الأسبوع</div>
+                </div>
+                <div style="font-size:30px;">🏆</div>
+            </div>
+            <div style="margin-top:10px; background:rgba(255,255,255,0.2); height:6px; border-radius:10px;">
+                <div style="width:60%; height:100%; background:white; border-radius:10px;"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- اختبار -->
-<div id="quiz" class="page">
-<div class="header"><h2>🧠 اختبار</h2></div>
+<!-- ========== صفحة المجتمع ========== -->
+<div id="community" class="page">
+    <div class="top-header" style="border-radius: 0 0 30px 30px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>👥 المجتمع</h2>
+            <span style="font-size:24px;">→</span>
+        </div>
+    </div>
 
-<div class="card">
-<p id="question"></p>
+    <div class="community-tabs">
+        <div class="category-chip active">الكل</div>
+        <div class="category-chip">النقاشات</div>
+        <div class="category-chip">المجموعات</div>
+        <div class="category-chip">المتصدرين</div>
+    </div>
 
-<button class="btn" id="opt1" onclick="checkAnswer(this)"></button>
-<button class="btn" id="opt2" onclick="checkAnswer(this)"></button>
-<button class="btn" id="opt3" onclick="checkAnswer(this)"></button>
+    <div class="community-card">
+        <div class="community-user">
+            <div class="community-avatar">س</div>
+            <div>
+                <div style="font-weight:700;">سارة</div>
+                <div style="font-size:12px; color:var(--gray);">منذ 5 دقائق</div>
+            </div>
+        </div>
+        <p style="font-size:14px; line-height:1.6;">كيف تعلمت على النقاش؟ أبحث عن نصائح للمبتدئين في عالم البرمجة! 💻</p>
+        <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
+            <span>❤️ 12</span>
+            <span>💬 5</span>
+            <span>🔄 2</span>
+        </div>
+    </div>
 
+    <div class="community-card">
+        <div class="community-user">
+            <div class="community-avatar" style="background:linear-gradient(135deg, var(--success), #00D2A0);">م</div>
+            <div>
+                <div style="font-weight:700;">محمد</div>
+                <div style="font-size:12px; color:var(--gray);">منذ ساعة</div>
+            </div>
+        </div>
+        <p style="font-size:14px; line-height:1.6;">شاركت ملخص ممتاز لدرس إدارة الوقت، أنصح الكل يشوفه! ⏰</p>
+        <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
+            <span>❤️ 28</span>
+            <span>💬 12</span>
+            <span>🔄 8</span>
+        </div>
+    </div>
+
+    <div class="community-card">
+        <div class="community-user">
+            <div class="community-avatar" style="background:linear-gradient(135deg, var(--danger), #FF9F9F);">ن</div>
+            <div>
+                <div style="font-weight:700;">نورة</div>
+                <div style="font-size:12px; color:var(--gray);">منذ يومين</div>
+            </div>
+        </div>
+        <p style="font-size:14px; line-height:1.6;">أفضل تطبيقات لتنظيم الوقت؟ جربت كثير وابي توصياتكم 📱</p>
+        <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
+            <span>❤️ 45</span>
+            <span>💬 20</span>
+            <span>🔄 15</span>
+        </div>
+    </div>
 </div>
 
-<p style="text-align:center">النقاط: <span id="score">0</span></p>
+<!-- ========== صفحة ملفي ========== -->
+<div id="profile" class="page">
+    <div class="profile-header">
+        <div class="profile-avatar">👩‍🎓</div>
+        <h2 style="font-size:20px; margin-bottom:5px;">مهارات التفكير الناقد</h2>
+        <p style="font-size:14px; opacity:0.9;">أكملت 5 دروس | 85% من المستوى</p>
+        
+        <div style="margin-top:15px; background:rgba(255,255,255,0.2); height:8px; border-radius:10px; max-width:250px; margin-left:auto; margin-right:auto;">
+            <div style="width:85%; height:100%; background:linear-gradient(90deg, var(--secondary), #E17055); border-radius:10px;"></div>
+        </div>
+    </div>
 
-<button class="btn" onclick="go('home')">رجوع</button>
+    <div class="profile-stats">
+        <div class="stat-box">
+            <div class="icon">🛡️</div>
+            <div class="number">12</div>
+            <div class="label">الشارات</div>
+        </div>
+        <div class="stat-box">
+            <div class="icon">⭐</div>
+            <div class="number">850</div>
+            <div class="label">النقاط</div>
+        </div>
+        <div class="stat-box">
+            <div class="icon">📚</div>
+            <div class="number">24</div>
+            <div class="label">الدروس</div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <span>🏆 الإنجازات</span>
+    </div>
+
+    <div class="profile-menu">
+        <div class="menu-item">
+            <div class="menu-icon" style="background:#FFF3CD;">🏅</div>
+            <div style="flex:1;">
+                <div style="font-weight:700;">المحتوى المحفوظ</div>
+                <div style="font-size:12px; color:var(--gray);">12 درس محفوظ</div>
+            </div>
+            <span style="color:var(--gray);">←</span>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-icon" style="background:#D4F5E9;">📊</div>
+            <div style="flex:1;">
+                <div style="font-weight:700;">التقارير</div>
+                <div style="font-size:12px; color:var(--gray);">تتبع تقدمك</div>
+            </div>
+            <span style="color:var(--gray);">←</span>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-icon" style="background:#D0E8FF;">⚙️</div>
+            <div style="flex:1;">
+                <div style="font-weight:700;">الإعدادات</div>
+                <div style="font-size:12px; color:var(--gray);">تخصيص التطبيق</div>
+            </div>
+            <span style="color:var(--gray);">←</span>
+        </div>
+
+        <div class="menu-item">
+            <div class="menu-icon" style="background:#FFE0E6;">↩️</div>
+            <div style="flex:1;">
+                <div style="font-weight:700;">تسجيل الخروج</div>
+                <div style="font-size:12px; color:var(--gray);">انهاء الجلسة</div>
+            </div>
+            <span style="color:var(--gray);">←</span>
+        </div>
+    </div>
 </div>
 
-<!-- الاشكال -->
-<div id="shapes" class="page">
-<div class="header"><h2>🎮 الأشكال</h2></div>
-
-<p style="text-align:center" id="shapeQ"></p>
-
-<div class="circle" onclick="shape('circle')"></div>
-<div class="square" onclick="shape('square')"></div>
-
-<p style="text-align:center">النقاط: <span id="shapeScore">0</span></p>
-
-<button class="btn" onclick="go('home')">رجوع</button>
-</div>
-
-<!-- فيديو -->
+<!-- ========== صفحة الفيديو ========== -->
 <div id="video" class="page">
-<div class="header"><h2>🎥 شرح الجمع</h2></div>
+    <button class="back-btn" onclick="go('home')">← رجوع</button>
+    
+    <div class="video-container">
+        <iframe 
+            id="videoFrame"
+            src="https://www.youtube.com/embed/kM0pZ4sM8g8?enablejsapi=1" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
 
-<div class="card">
-<iframe width="100%" height="200"
-src="https://www.youtube.com/embed/kM0pZ4sM8g8"
-frameborder="0" allowfullscreen></iframe>
+    <div class="video-info">
+        <h1 class="video-title">📐 شرح الجمع والطرح</h1>
+        <p class="video-desc">
+            درس تفاعلي يشرح أساسيات الجمع والطرح للأطفال بطريقة ممتعة وسهلة. 
+            تعلم كيف تجمع الأرقام وكيف تطرحها مع أمثلة عملية.
+        </p>
+        
+        <div style="margin-top:20px; padding:15px; background:var(--white); border-radius:15px;">
+            <h3 style="margin-bottom:10px;">📝 ملخص الدرس</h3>
+            <ul style="list-style:none; padding:0;">
+                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ مفهوم الجمع (+)</li>
+                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ مفهوم الطرح (-)</li>
+                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ أمثلة تطبيقية</li>
+                <li style="padding:8px 0;">✅ تمارين تفاعلية</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-<button class="btn" onclick="go('home')">رجوع</button>
+<!-- ========== صفحة الاختبار ========== -->
+<div id="quiz" class="page">
+    <div class="top-header" style="border-radius: 0 0 30px 30px;">
+        <div class="header-content">
+            <h2>🧠 اختبار الرياضيات</h2>
+        </div>
+    </div>
+
+    <div class="quiz-container">
+        <div class="quiz-card">
+            <div class="quiz-question" id="question">جاري التحميل...</div>
+            <div class="quiz-options" id="options"></div>
+            <div style="margin-top:20px; font-size:18px; font-weight:700;">
+                النقاط: <span id="score" style="color:var(--primary);">0</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="go('home')">← رجوع للرئيسية</button>
 </div>
 
-<!-- تلخيص -->
+<!-- ========== صفحة الأشكال ========== -->
+<div id="shapes" class="page">
+    <div class="top-header" style="border-radius: 0 0 30px 30px;">
+        <div class="header-content">
+            <h2>🎮 لعبة الأشكال</h2>
+        </div>
+    </div>
+
+    <div class="shapes-game">
+        <div class="shape-target" id="shapeQ">اضغط على الدائرة!</div>
+        
+        <div class="shapes-row">
+            <div class="game-shape" onclick="checkShape('circle')">
+                <div class="shape-circle"></div>
+            </div>
+            <div class="game-shape" onclick="checkShape('square')">
+                <div class="shape-square"></div>
+            </div>
+        </div>
+
+        <div style="margin-top:30px; font-size:20px; font-weight:700;">
+            النقاط: <span id="shapeScore" style="color:var(--primary);">0</span>
+        </div>
+    </div>
+
+    <button class="back-btn" onclick="go('home')">← رجوع للرئيسية</button>
+</div>
+
+<!-- ========== صفحة التلخيص ========== -->
 <div id="summary" class="page">
-<div class="header"><h2>📚 جدول الضرب</h2></div>
+    <div class="top-header" style="border-radius: 0 0 30px 30px;">
+        <div class="header-content">
+            <h2>📚 جدول الضرب</h2>
+        </div>
+    </div>
 
-<div class="card">
-<table border="1" width="100%" style="text-align:center">
-<tr><th>×</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
-<tr><td>1</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
-<tr><td>2</td><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td></tr>
-<tr><td>3</td><td>3</td><td>6</td><td>9</td><td>12</td><td>15</td></tr>
-<tr><td>4</td><td>4</td><td>8</td><td>12</td><td>16</td><td>20</td></tr>
-<tr><td>5</td><td>5</td><td>10</td><td>15</td><td>20</td><td>25</td></tr>
-</table>
+    <div class="summary-container">
+        <table class="times-table">
+            <tr>
+                <th>×</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+            </tr>
+            <tr>
+                <th>1</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+            </tr>
+            <tr>
+                <th>2</th><td>2</td><td>4</td><td>6</td><td>8</td><td>10</td>
+            </tr>
+            <tr>
+                <th>3</th><td>3</td><td>6</td><td>9</td><td>12</td><td>15</td>
+            </tr>
+            <tr>
+                <th>4</th><td>4</td><td>8</td><td>12</td><td>16</td><td>20</td>
+            </tr>
+            <tr>
+                <th>5</th><td>5</td><td>10</td><td>15</td><td>20</td><td>25</td>
+            </tr>
+        </table>
+    </div>
+
+    <button class="back-btn" onclick="go('home')">← رجوع للرئيسية</button>
 </div>
 
-<button class="btn" onclick="go('home')">رجوع</button>
+<!-- ========== التبويب السفلي ========== -->
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="go('home', this)">
+        <span class="icon">🏠</span>
+        <span>الرئيسية</span>
+    </div>
+    <div class="nav-item" onclick="go('courses', this)">
+        <span class="icon">📚</span>
+        <span>الدورات</span>
+    </div>
+    <div class="nav-item" onclick="go('tasks', this)">
+        <span class="icon">📋</span>
+        <span>المهام</span>
+    </div>
+    <div class="nav-item" onclick="go('community', this)">
+        <span class="icon">👥</span>
+        <span>المجتمع</span>
+    </div>
+    <div class="nav-item" onclick="go('profile', this)">
+        <span class="icon">👤</span>
+        <span>ملفي</span>
+    </div>
 </div>
+
+<!-- إشعار -->
+<div class="toast" id="toast"></div>
 
 <script>
-let score=0;
+// ====== المتغيرات العامة ======
+let score = 0;
 let correctAnswer;
-let shapeScore=0;
-let shapeType="circle";
+let shapeScore = 0;
+let shapeType = "circle";
+let currentPage = 'home';
 
-/* تنقل */
-function go(p){
-document.querySelectorAll(".page").forEach(e=>e.classList.remove("active"));
-document.getElementById(p).classList.add("active");
-
-if(p==="quiz") newQuestion();
+// ====== التنقل بين الصفحات ======
+function go(page, navItem = null) {
+    // إخفاء كل الصفحات
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+    });
+    
+    // إظهار الصفحة المطلوبة
+    document.getElementById(page).classList.add('active');
+    
+    // تحديث التبويب النشط
+    if (navItem) {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navItem.classList.add('active');
+    }
+    
+    currentPage = page;
+    
+    // تهيئة الصفحات الخاصة
+    if (page === 'quiz') newQuestion();
+    if (page === 'shapes') newShape();
+    
+    // التمرير للأعلى
+    window.scrollTo(0, 0);
 }
 
-/* اسم */
-function saveName(){
-let name=document.getElementById("nameInput").value;
-document.getElementById("userName").innerText=name;
+// ====== حفظ الاسم ======
+function saveName() {
+    let name = document.getElementById('nameInput').value;
+    if (name.trim()) {
+        document.getElementById('userName').innerText = name;
+        localStorage.setItem('userName', name);
+        showToast('تم حفظ الاسم! 🎉');
+    }
 }
 
-/* اختبار */
-function newQuestion(){
-let a=Math.floor(Math.random()*10);
-let b=Math.floor(Math.random()*10);
+// تحميل الاسم المحفوظ
+window.onload = function() {
+    let savedName = localStorage.getItem('userName');
+    if (savedName) {
+        document.getElementById('userName').innerText = savedName;
+    }
+    
+    // ملء صفحة الدورات
+    fillCoursesPage();
+};
 
-if(Math.random()>0.5){
-correctAnswer=a+b;
-document.getElementById("question").innerText=`كم ${a} + ${b} ؟`;
-}else{
-correctAnswer=a*b;
-document.getElementById("question").innerText=`كم ${a} × ${b} ؟`;
+// ====== البحث والفلترة ======
+function searchCourses() {
+    let query = document.getElementById('searchInput').value.toLowerCase();
+    let cards = document.querySelectorAll('.course-card');
+    
+    cards.forEach(card => {
+        let title = card.querySelector('h3').innerText.toLowerCase();
+        let desc = card.querySelector('p').innerText.toLowerCase();
+        
+        if (title.includes(query) || desc.includes(query)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 }
 
-/* خيارات */
-let options=[correctAnswer,
-correctAnswer+1,
-correctAnswer-1];
-
-options.sort(()=>Math.random()-0.5);
-
-document.getElementById("opt1").innerText=options[0];
-document.getElementById("opt2").innerText=options[1];
-document.getElementById("opt3").innerText=options[2];
+function filterCategory(chip, category) {
+    // تحديث الزر النشط
+    document.querySelectorAll('.categories .category-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    
+    // فلترة الدورات
+    let cards = document.querySelectorAll('.course-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 }
 
-function checkAnswer(btn){
-let chosen=Number(btn.innerText);
-
-if(chosen===correctAnswer){
-score+=2;
+// ====== صفحة الدورات ======
+function fillCoursesPage() {
+    let list = document.getElementById('coursesPageList');
+    let courses = [
+        {icon: '🧠', title: 'مهارات التفكير الناقد', desc: 'تطوير قدراتك على تحليل المعلومات', color: 'purple', lessons: 5, rating: 4.8},
+        {icon: '⏰', title: 'إدارة الوقت', desc: 'تعلم كيف تنظم يومك بكفاءة', color: 'yellow', lessons: 4, rating: 4.6},
+        {icon: '💻', title: 'أساسيات البرمجة', desc: 'ابدأ رحلتك في عالم البرمجة', color: 'green', lessons: 5, rating: 4.9},
+        {icon: '🌐', title: 'مهارات التواصل', desc: 'تواصل بلغة واحترافية', color: 'blue', lessons: 4, rating: 4.7},
+        {icon: '🎨', title: 'التصميم الإبداعي', desc: 'أطلق إبداعك في التصميم', color: 'pink', lessons: 5, rating: 4.5},
+    ];
+    
+    list.innerHTML = courses.map(c => `
+        <div class="course-card" onclick="go('video')">
+            <div class="course-icon ${c.color}">${c.icon}</div>
+            <div class="course-info">
+                <h3>${c.title}</h3>
+                <p>${c.desc}</p>
+                <div class="course-meta">
+                    <span>⏱ ${c.lessons} دروس</span>
+                    <span>⭐ ${c.rating}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
 }
 
-document.getElementById("score").innerText=score;
-newQuestion();
+// ====== صفحة المهام ======
+function filterTasks(tab, type) {
+    document.querySelectorAll('.task-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    showToast(`تم التبديل للمهام ${type === 'daily' ? 'اليومية' : type === 'weekly' ? 'الأسبوعية' : 'الشهرية'}`);
 }
 
-/* اشكال */
-function newShape(){
-shapeType=Math.random()>0.5?"circle":"square";
-document.getElementById("shapeQ").innerText=
-shapeType==="circle"?"اضغط على الدائرة":"اضغط على المربع";
+function toggleTask(checkbox) {
+    checkbox.classList.toggle('done');
+    let text = checkbox.nextElementSibling;
+    text.classList.toggle('done');
+    
+    if (checkbox.classList.contains('done')) {
+        showToast('✅ مهمة مكتملة! +10 نقاط');
+    }
 }
 
-function shape(type){
-if(type===shapeType){
-shapeScore+=2;
-}
-document.getElementById("shapeScore").innerText=shapeScore;
-newShape();
+// ====== الاختبار ======
+function newQuestion() {
+    let a = Math.floor(Math.random() * 10) + 1;
+    let b = Math.floor(Math.random() * 10) + 1;
+    
+    if (Math.random() > 0.5) {
+        correctAnswer = a + b;
+        document.getElementById('question').innerText = `كم ${a} + ${b} ؟`;
+    } else {
+        correctAnswer = a * b;
+        document.getElementById('question').innerText = `كم ${a} × ${b} ؟`;
+    }
+    
+    let options = [
+        correctAnswer,
+        correctAnswer + Math.floor(Math.random() * 5) + 1,
+        correctAnswer - Math.floor(Math.random() * 5) - 1
+    ];
+    
+    options.sort(() => Math.random() - 0.5);
+    
+    let html = options.map(opt => 
+        `<button class="quiz-btn" onclick="checkAnswer(this, ${opt})">${opt}</button>`
+    ).join('');
+    
+    document.getElementById('options').innerHTML = html;
 }
 
-newShape();
+function checkAnswer(btn, chosen) {
+    let buttons = document.querySelectorAll('.quiz-btn');
+    
+    buttons.forEach(b => {
+        b.disabled = true;
+        if (Number(b.innerText) === correctAnswer) {
+            b.classList.add('correct');
+        }
+    });
+    
+    if (chosen === correctAnswer) {
+        score += 10;
+        showToast('🎉 إجابة صحيحة! +10 نقاط');
+    } else {
+        btn.classList.add('wrong');
+        showToast('❌ إجابة خاطئة، حاول مرة أخرى');
+    }
+    
+    document.getElementById('score').innerText = score;
+    
+    setTimeout(() => newQuestion(), 1500);
+}
+
+// ====== لعبة الأشكال ======
+function newShape() {
+    shapeType = Math.random() > 0.5 ? 'circle' : 'square';
+    document.getElementById('shapeQ').innerText = 
+        shapeType === 'circle' ? 'اضغط على الدائرة!' : 'اضغط على المربع!';
+}
+
+function checkShape(type) {
+    if (type === shapeType) {
+        shapeScore += 5;
+        showToast('🎉 أحسنت! +5 نقاط');
+    } else {
+        showToast('❌ حاول مرة أخرى');
+    }
+    
+    document.getElementById('shapeScore').innerText = shapeScore;
+    newShape();
+}
+
+// ====== إشعارات ======
+function showToast(message) {
+    let toast = document.getElementById('toast');
+    toast.innerText = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// ====== اختصارات لوحة المفاتيح ======
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        go('home');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelector('.nav-item:first-child').classList.add('active');
+    }
+});
 </script>
 
 </body>
