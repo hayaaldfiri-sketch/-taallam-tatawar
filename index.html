@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>تعلم وتطور مع هيا </title>
+<title>تعلم وتطور مع هيا</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 * {
@@ -33,6 +33,158 @@ body {
     color: var(--dark);
     overflow-x: hidden;
     padding-bottom: 80px;
+}
+
+/* ====== شاشة الترحيب ====== */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.welcome-screen.hidden {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+
+.welcome-logo {
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: bounceIn 1s ease;
+}
+
+.welcome-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.welcome-subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.welcome-btn {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 16px 50px;
+    border-radius: 30px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.welcome-btn:active {
+    transform: scale(0.95);
+}
+
+/* ====== شاشة التعليمات ====== */
+.guide-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--light-gray);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.guide-screen.active {
+    display: flex;
+}
+
+.guide-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+}
+
+.guide-header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.guide-header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.guide-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.guide-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.guide-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.guide-text h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.guide-text p {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.5;
+}
+
+.guide-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 20px;
+    box-shadow: 0 5px 20px rgba(108, 92, 231, 0.3);
 }
 
 /* ====== الشريط العلوي ====== */
@@ -125,7 +277,7 @@ body {
     background: linear-gradient(90deg, var(--secondary), #E17055);
     border-radius: 10px;
     transition: width 0.5s ease;
-    width: 60%;
+    width: 0%;
 }
 
 /* ====== البحث ====== */
@@ -240,6 +392,8 @@ body {
 .course-icon.green { background: linear-gradient(135deg, #D4F5E9, #A8E6CF); }
 .course-icon.blue { background: linear-gradient(135deg, #D0E8FF, #A8D8FF); }
 .course-icon.pink { background: linear-gradient(135deg, #FFE0E6, #FFB8C9); }
+.course-icon.orange { background: linear-gradient(135deg, #FFD3B6, #FFAAA5); }
+.course-icon.teal { background: linear-gradient(135deg, #B5EAD7, #C7F0DB); }
 
 .course-info {
     flex: 1;
@@ -328,6 +482,12 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* ====== صفحة الدورات ====== */
@@ -861,13 +1021,65 @@ body {
 </head>
 <body>
 
+<!-- ========== شاشة الترحيب ========== -->
+<div class="welcome-screen" id="welcomeScreen">
+    <div class="welcome-logo">🎓</div>
+    <div class="welcome-title">تعلم وتطور مع هيا</div>
+    <div class="welcome-subtitle">رحلتك نحو التعلم تبدأ من هنا</div>
+    <button class="welcome-btn" onclick="showGuide()">ابدأ الرحلة 🚀</button>
+</div>
+
+<!-- ========== شاشة التعليمات ========== -->
+<div class="guide-screen" id="guideScreen">
+    <div class="guide-header">
+        <h2>📖 كيف تستخدم التطبيق</h2>
+        <p>دليلك السريع للتعلم</p>
+    </div>
+    
+    <div class="guide-content">
+        <div class="guide-card">
+            <div class="guide-icon">📚</div>
+            <div class="guide-text">
+                <h3>الدورات التعليمية</h3>
+                <p>اختر من فيزياء، كيمياء، رياضيات، ترجمة، وإنجليزي. كل دورة تحتوي على فيديو واختبار.</p>
+            </div>
+        </div>
+        
+        <div class="guide-card">
+            <div class="guide-icon">🎮</div>
+            <div class="guide-text">
+                <h3>الألعاب التعليمية</h3>
+                <p>اختبر معلوماتك بألعاب تفاعلية واكسب نقاط مع كل إجابة صحيحة.</p>
+            </div>
+        </div>
+        
+        <div class="guide-card">
+            <div class="guide-icon">📊</div>
+            <div class="guide-text">
+                <h3>تتبع تقدمك</h3>
+                <p>شريط التقدم يزيد مع كل درس تكمله وكل اختبار تجتازه.</p>
+            </div>
+        </div>
+        
+        <div class="guide-card">
+            <div class="guide-icon">🏆</div>
+            <div class="guide-text">
+                <h3>الإنجازات</h3>
+                <p>اجمع النقاط والشارات ونافس أصدقاءك في لوحة المتصدرين.</p>
+            </div>
+        </div>
+    </div>
+    
+    <button class="guide-btn" onclick="startApp()">فهمت، خلني أبدأ! 💪</button>
+</div>
+
 <!-- ========== الصفحة الرئيسية ========== -->
-<div id="home" class="page active">
+<div id="home" class="page">
 
     <!-- الشريط العلوي -->
     <div class="top-header">
         <div class="header-content">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=maryam&backgroundColor=b6e3f4" class="avatar" alt="مريم">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=haya&backgroundColor=b6e3f4" class="avatar" alt="هيا">
             <div class="user-info">
                 <h2>أهلاً <span id="userName">...</span> 👋</h2>
                 <p>أنت على الطريق الصحيح!<br>استمر وتعلم مهارات جديدة كل يوم</p>
@@ -876,11 +1088,11 @@ body {
         
         <div class="progress-section">
             <div class="progress-header">
-                <span>📊 تعلم مهارة جديدة</span>
-                <span>60%</span>
+                <span>📊 مستوى تقدمك</span>
+                <span id="progressPercent">0%</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill"></div>
+                <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
     </div>
@@ -893,27 +1105,28 @@ body {
     <!-- فئات الدورات -->
     <div class="categories">
         <div class="category-chip active" onclick="filterCategory(this, 'all')">الكل</div>
-        <div class="category-chip" onclick="filterCategory(this, 'tech')">تقنية</div>
-        <div class="category-chip" onclick="filterCategory(this, 'design')">تصميم</div>
-        <div class="category-chip" onclick="filterCategory(this, 'lang')">لغات</div>
-        <div class="category-chip" onclick="filterCategory(this, 'business')">أكاديمية</div>
+        <div class="category-chip" onclick="filterCategory(this, 'physics')">فيزياء</div>
+        <div class="category-chip" onclick="filterCategory(this, 'chemistry')">كيمياء</div>
+        <div class="category-chip" onclick="filterCategory(this, 'math')">رياضيات</div>
+        <div class="category-chip" onclick="filterCategory(this, 'translation')">ترجمة</div>
+        <div class="category-chip" onclick="filterCategory(this, 'english')">إنجليزي</div>
     </div>
 
-    <!-- الدورات المستمرة -->
+    <!-- الدورات المقترحة -->
     <div class="section-title">
         <span>📚 الدورات المقترحة لك</span>
         <a href="#" onclick="showToast('قريباً!')">عرض الكل</a>
     </div>
 
     <div class="suggested-grid">
-        <div class="suggested-card" onclick="go('video')">
-            <div class="img-box" style="background: linear-gradient(135deg, #E8E0FF, #D6C8FF);">💻</div>
-            <h4>أساسيات الحاسوب</h4>
+        <div class="suggested-card" onclick="openVideo('physics')">
+            <div class="img-box" style="background: linear-gradient(135deg, #E8E0FF, #D6C8FF);">⚛️</div>
+            <h4>فيزياء أساسية</h4>
             <p>5 دروس</p>
         </div>
-        <div class="suggested-card" onclick="go('video')">
-            <div class="img-box" style="background: linear-gradient(135deg, #D0E8FF, #A8D8FF);">💬</div>
-            <h4>مهارات التواصل</h4>
+        <div class="suggested-card" onclick="openVideo('chemistry')">
+            <div class="img-box" style="background: linear-gradient(135deg, #D4F5E9, #A8E6CF);">🧪</div>
+            <h4>كيمياء عامة</h4>
             <p>4 دروس</p>
         </div>
     </div>
@@ -924,11 +1137,12 @@ body {
     </div>
 
     <div id="coursesList">
-        <div class="course-card" data-category="tech" onclick="go('video')">
-            <div class="course-icon purple">🧠</div>
+        <!-- فيزياء -->
+        <div class="course-card" data-category="physics" onclick="openVideo('physics')">
+            <div class="course-icon purple">⚛️</div>
             <div class="course-info">
-                <h3>مهارات التفكير الناقد</h3>
-                <p>تطوير قدراتك على تحليل المعلومات</p>
+                <h3>فيزياء أساسية</h3>
+                <p>تعلم القوانين الأساسية في الحركة والقوى</p>
                 <div class="course-meta">
                     <span>⏱ 5 دروس</span>
                     <span>⭐ 4.8</span>
@@ -936,11 +1150,12 @@ body {
             </div>
         </div>
 
-        <div class="course-card" data-category="tech" onclick="go('video')">
-            <div class="course-icon yellow">⏰</div>
+        <!-- كيمياء -->
+        <div class="course-card" data-category="chemistry" onclick="openVideo('chemistry')">
+            <div class="course-icon green">🧪</div>
             <div class="course-info">
-                <h3>إدارة الوقت</h3>
-                <p>تعلم كيف تنظم يومك بكفاءة</p>
+                <h3>كيمياء عامة</h3>
+                <p>العناصر والمركبات والتفاعلات الكيميائية</p>
                 <div class="course-meta">
                     <span>⏱ 4 دروس</span>
                     <span>⭐ 4.6</span>
@@ -948,11 +1163,12 @@ body {
             </div>
         </div>
 
-        <div class="course-card" data-category="design" onclick="go('video')">
-            <div class="course-icon green">💻</div>
+        <!-- رياضيات -->
+        <div class="course-card" data-category="math" onclick="openVideo('math')">
+            <div class="course-icon yellow">📐</div>
             <div class="course-info">
-                <h3>أساسيات البرمجة</h3>
-                <p>ابدأ رحلتك في عالم البرمجة</p>
+                <h3>رياضيات أساسية</h3>
+                <p>الجمع والطرح والضرب مع أمثلة تطبيقية</p>
                 <div class="course-meta">
                     <span>⏱ 5 دروس</span>
                     <span>⭐ 4.9</span>
@@ -960,11 +1176,12 @@ body {
             </div>
         </div>
 
-        <div class="course-card" data-category="lang" onclick="go('video')">
+        <!-- ترجمة -->
+        <div class="course-card" data-category="translation" onclick="openVideo('translation')">
             <div class="course-icon blue">🌐</div>
             <div class="course-info">
-                <h3>مهارات التواصل</h3>
-                <p>تواصل بلغة واحترافية</p>
+                <h3>مهارات الترجمة</h3>
+                <p>تعلم ترجمة النصوص باحترافية</p>
                 <div class="course-meta">
                     <span>⏱ 4 دروس</span>
                     <span>⭐ 4.7</span>
@@ -972,11 +1189,12 @@ body {
             </div>
         </div>
 
-        <div class="course-card" data-category="design" onclick="go('video')">
-            <div class="course-icon pink">🎨</div>
+        <!-- إنجليزي -->
+        <div class="course-card" data-category="english" onclick="openVideo('english')">
+            <div class="course-icon pink">🇬🇧</div>
             <div class="course-info">
-                <h3>التصميم الإبداعي</h3>
-                <p>أطلق إبداعك في التصميم</p>
+                <h3>اللغة الإنجليزية</h3>
+                <p>تعلم المحادثة والقواعد من الصفر</p>
                 <div class="course-meta">
                     <span>⏱ 5 دروس</span>
                     <span>⭐ 4.5</span>
@@ -1039,25 +1257,25 @@ body {
 
     <div class="task-item">
         <div class="task-checkbox done" onclick="toggleTask(this)"></div>
-        <div class="task-text done">شاهد درس جديد</div>
+        <div class="task-text done">شاهد درس فيزياء</div>
         <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
     </div>
 
     <div class="task-item">
         <div class="task-checkbox" onclick="toggleTask(this)"></div>
-        <div class="task-text">أجب على اختبار</div>
+        <div class="task-text">أجب على اختبار رياضيات</div>
         <span style="color:var(--gray); font-size:12px;">+15 نقاط</span>
     </div>
 
     <div class="task-item">
         <div class="task-checkbox" onclick="toggleTask(this)"></div>
-        <div class="task-text">اقرأ مقال تعليمي</div>
+        <div class="task-text">اقرأ عن تفاعل كيميائي</div>
         <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
     </div>
 
     <div class="task-item">
         <div class="task-checkbox done" onclick="toggleTask(this)"></div>
-        <div class="task-text done">شارك في النقاش</div>
+        <div class="task-text done">تعلم 5 كلمات إنجليزية</div>
         <span style="color:var(--gray); font-size:12px;">+10 نقاط</span>
     </div>
 
@@ -1080,12 +1298,12 @@ body {
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div style="text-align:right;">
                     <div style="font-weight:700;">تحدي الأسبوع 🏆</div>
-                    <div style="font-size:12px; opacity:0.9;">تعلم 5 دروس هذا الأسبوع</div>
+                    <div style="font-size:12px; opacity:0.9;">أكمل 3 دروس هذا الأسبوع</div>
                 </div>
                 <div style="font-size:30px;">🏆</div>
             </div>
             <div style="margin-top:10px; background:rgba(255,255,255,0.2); height:6px; border-radius:10px;">
-                <div style="width:60%; height:100%; background:white; border-radius:10px;"></div>
+                <div style="width:33%; height:100%; background:white; border-radius:10px;"></div>
             </div>
         </div>
     </div>
@@ -1109,49 +1327,49 @@ body {
 
     <div class="community-card">
         <div class="community-user">
-            <div class="community-avatar">س</div>
+            <div class="community-avatar">أ</div>
             <div>
-                <div style="font-weight:700;">سارة</div>
+                <div style="font-weight:700;">أحمد</div>
                 <div style="font-size:12px; color:var(--gray);">منذ 5 دقائق</div>
             </div>
         </div>
-        <p style="font-size:14px; line-height:1.6;">كيف تعلمت على النقاش؟ أبحث عن نصائح للمبتدئين في عالم البرمجة! 💻</p>
+        <p style="font-size:14px; line-height:1.6;">أحتاج مساعدة في فهم قانون نيوتن الثالث! هل أحد يقدر يشرحلي بطريقة بسيطة؟ ⚛️</p>
         <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
-            <span>❤️ 12</span>
-            <span>💬 5</span>
-            <span>🔄 2</span>
+            <span>❤️ 8</span>
+            <span>💬 4</span>
+            <span>🔄 1</span>
         </div>
     </div>
 
     <div class="community-card">
         <div class="community-user">
-            <div class="community-avatar" style="background:linear-gradient(135deg, var(--success), #00D2A0);">م</div>
+            <div class="community-avatar" style="background:linear-gradient(135deg, var(--success), #00D2A0);">ل</div>
             <div>
-                <div style="font-weight:700;">محمد</div>
+                <div style="font-weight:700;">ليلى</div>
                 <div style="font-size:12px; color:var(--gray);">منذ ساعة</div>
             </div>
         </div>
-        <p style="font-size:14px; line-height:1.6;">شاركت ملخص ممتاز لدرس إدارة الوقت، أنصح الكل يشوفه! ⏰</p>
+        <p style="font-size:14px; line-height:1.6;">شاركت ملخص رائع لدرس الترجمة! أنصح الكل يشوفه 🌐</p>
         <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
-            <span>❤️ 28</span>
-            <span>💬 12</span>
-            <span>🔄 8</span>
+            <span>❤️ 22</span>
+            <span>💬 8</span>
+            <span>🔄 5</span>
         </div>
     </div>
 
     <div class="community-card">
         <div class="community-user">
-            <div class="community-avatar" style="background:linear-gradient(135deg, var(--danger), #FF9F9F);">ن</div>
+            <div class="community-avatar" style="background:linear-gradient(135deg, var(--danger), #FF9F9F);">خ</div>
             <div>
-                <div style="font-weight:700;">نورة</div>
+                <div style="font-weight:700;">خالد</div>
                 <div style="font-size:12px; color:var(--gray);">منذ يومين</div>
             </div>
         </div>
-        <p style="font-size:14px; line-height:1.6;">أفضل تطبيقات لتنظيم الوقت؟ جربت كثير وابي توصياتكم 📱</p>
+        <p style="font-size:14px; line-height:1.6;">أفضل طريقة لحفظ جدول الضرب؟ جربت كثير وابي توصياتكم 📐</p>
         <div style="display:flex; gap:15px; margin-top:12px; font-size:12px; color:var(--gray);">
-            <span>❤️ 45</span>
-            <span>💬 20</span>
-            <span>🔄 15</span>
+            <span>❤️ 35</span>
+            <span>💬 15</span>
+            <span>🔄 10</span>
         </div>
     </div>
 </div>
@@ -1160,28 +1378,28 @@ body {
 <div id="profile" class="page">
     <div class="profile-header">
         <div class="profile-avatar">👩‍🎓</div>
-        <h2 style="font-size:20px; margin-bottom:5px;">مهارات التفكير الناقد</h2>
-        <p style="font-size:14px; opacity:0.9;">أكملت 5 دروس | 85% من المستوى</p>
+        <h2 style="font-size:20px; margin-bottom:5px;">تعلم وتطور مع هيا</h2>
+        <p style="font-size:14px; opacity:0.9;">أكملت <span id="completedLessons">0</span> دروس | <span id="levelPercent">0</span>% من المستوى</p>
         
         <div style="margin-top:15px; background:rgba(255,255,255,0.2); height:8px; border-radius:10px; max-width:250px; margin-left:auto; margin-right:auto;">
-            <div style="width:85%; height:100%; background:linear-gradient(90deg, var(--secondary), #E17055); border-radius:10px;"></div>
+            <div style="width:0%; height:100%; background:linear-gradient(90deg, var(--secondary), #E17055); border-radius:10px; transition:width 0.5s;" id="profileProgress"></div>
         </div>
     </div>
 
     <div class="profile-stats">
         <div class="stat-box">
             <div class="icon">🛡️</div>
-            <div class="number">12</div>
+            <div class="number" id="badgeCount">0</div>
             <div class="label">الشارات</div>
         </div>
         <div class="stat-box">
             <div class="icon">⭐</div>
-            <div class="number">850</div>
+            <div class="number" id="pointCount">0</div>
             <div class="label">النقاط</div>
         </div>
         <div class="stat-box">
             <div class="icon">📚</div>
-            <div class="number">24</div>
+            <div class="number" id="lessonCount">0</div>
             <div class="label">الدروس</div>
         </div>
     </div>
@@ -1195,7 +1413,7 @@ body {
             <div class="menu-icon" style="background:#FFF3CD;">🏅</div>
             <div style="flex:1;">
                 <div style="font-weight:700;">المحتوى المحفوظ</div>
-                <div style="font-size:12px; color:var(--gray);">12 درس محفوظ</div>
+                <div style="font-size:12px; color:var(--gray);">0 درس محفوظ</div>
             </div>
             <span style="color:var(--gray);">←</span>
         </div>
@@ -1218,11 +1436,11 @@ body {
             <span style="color:var(--gray);">←</span>
         </div>
 
-        <div class="menu-item">
-            <div class="menu-icon" style="background:#FFE0E6;">↩️</div>
+        <div class="menu-item" onclick="resetProgress()">
+            <div class="menu-icon" style="background:#FFE0E6;">🔄</div>
             <div style="flex:1;">
-                <div style="font-weight:700;">تسجيل الخروج</div>
-                <div style="font-size:12px; color:var(--gray);">انهاء الجلسة</div>
+                <div style="font-weight:700;">إعادة التقدم</div>
+                <div style="font-size:12px; color:var(--gray);">ابدأ من جديد</div>
             </div>
             <span style="color:var(--gray);">←</span>
         </div>
@@ -1236,28 +1454,30 @@ body {
     <div class="video-container">
         <iframe 
             id="videoFrame"
-            src="https://www.youtube.com/embed/kM0pZ4sM8g8?enablejsapi=1" 
+            src="" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
         </iframe>
     </div>
 
     <div class="video-info">
-        <h1 class="video-title">📐 شرح الجمع والطرح</h1>
-        <p class="video-desc">
-            درس تفاعلي يشرح أساسيات الجمع والطرح للأطفال بطريقة ممتعة وسهلة. 
-            تعلم كيف تجمع الأرقام وكيف تطرحها مع أمثلة عملية.
+        <h1 class="video-title" id="videoTitle">📐 عنوان الفيديو</h1>
+        <p class="video-desc" id="videoDesc">
+            وصف الفيديو يظهر هنا...
         </p>
         
         <div style="margin-top:20px; padding:15px; background:var(--white); border-radius:15px;">
-            <h3 style="margin-bottom:10px;">📝 ملخص الدرس</h3>
-            <ul style="list-style:none; padding:0;">
-                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ مفهوم الجمع (+)</li>
-                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ مفهوم الطرح (-)</li>
-                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ أمثلة تطبيقية</li>
-                <li style="padding:8px 0;">✅ تمارين تفاعلية</li>
+            <h3 style="margin-bottom:10px;">📝 محتوى الدرس</h3>
+            <ul style="list-style:none; padding:0;" id="videoSummary">
+                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ نقطة 1</li>
+                <li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">✅ نقطة 2</li>
+                <li style="padding:8px 0;">✅ نقطة 3</li>
             </ul>
         </div>
+
+        <button class="guide-btn" style="margin:20px 0; width:100%;" onclick="completeLesson()">
+            ✅ أكملت الدرس (احصل على 10 نقاط)
+        </button>
     </div>
 </div>
 
@@ -1372,24 +1592,158 @@ body {
 <div class="toast" id="toast"></div>
 
 <script>
+// ====== بيانات الفيديوهات ======
+const videoData = {
+    physics: {
+        title: '⚛️ فيزياء أساسية - الحركة والسرعة',
+        desc: 'درس تفاعلي يشرح قوانين الحركة الأساسية: السرعة، التسارع، وقانون نيوتن الأول بطريقة مبسطة مع أمثلة تطبيقية.',
+        videoId: '2yR8WI1pP3w',
+        summary: [
+            '✅ مفهوم السرعة المتجهة',
+            '✅ قانون المسافة = السرعة × الزمن',
+            '✅ أمثلة تطبيقية على الحركة'
+        ]
+    },
+    chemistry: {
+        title: '🧪 كيمياء عامة - الجدول الدوري',
+        desc: 'تعرف على الجدول الدوري للعناصر وكيفية تصنيف العناصر إلى فلزات ولا فلزات وأشباه فلزات.',
+        videoId: '7Y5CZ7DpF3Y',
+        summary: [
+            '✅ مفهوم الجدول الدوري',
+            '✅ تصنيف العناصر الكيميائية',
+            '✅ خواص الفلزات واللا فلزات'
+        ]
+    },
+    math: {
+        title: '📐 رياضيات أساسية - الجمع والطرح',
+        desc: 'درس تفاعلي يشرح أساسيات الجمع والطرح للأطفال بطريقة ممتعة وسهلة مع أمثلة عملية.',
+        videoId: 'kM0pZ4sM8g8',
+        summary: [
+            '✅ مفهوم الجمع (+)',
+            '✅ مفهوم الطرح (-)',
+            '✅ تمارين تفاعلية'
+        ]
+    },
+    translation: {
+        title: '🌐 مهارات الترجمة - المستوى الأول',
+        desc: 'تعلم أساسيات الترجمة من العربية إلى الإنجليزية والعكس مع نصوص بسيطة ومصطلحات شائعة.',
+        videoId: 'Xc2w8d8',
+        summary: [
+            '✅ الفرق بين الترجمة الحرفية والمعنوية',
+            '✅ مصطلحات شائعة في الترجمة',
+            '✅ تمارين عملية على النصوص'
+        ]
+    },
+    english: {
+        title: '🇬🇧 الإنجليزية - المحادثة اليومية',
+        desc: 'تعلم أهم العبارات والجمل المستخدمة في الحياة اليومية باللغة الإنجليزية.',
+        videoId: 'L2v2',
+        summary: [
+            '✅ التحيات والتعارف (Greetings)',
+            '✅ أسماء الأشياء المحيطة',
+            '✅ جمل أساسية للمحادثة'
+        ]
+    }
+};
+
 // ====== المتغيرات العامة ======
 let score = 0;
 let correctAnswer;
 let shapeScore = 0;
 let shapeType = "circle";
 let currentPage = 'home';
+let userProgress = {
+    points: 0,
+    lessons: 0,
+    badges: 0,
+    completedVideos: []
+};
+
+// ====== شاشة الترحيب ======
+function showGuide() {
+    document.getElementById('welcomeScreen').classList.add('hidden');
+    document.getElementById('guideScreen').classList.add('active');
+}
+
+function startApp() {
+    document.getElementById('guideScreen').classList.remove('active');
+    document.getElementById('welcomeScreen').style.display = 'none';
+    loadProgress();
+}
+
+// ====== تحميل الحفظ ======
+function loadProgress() {
+    let saved = localStorage.getItem('userProgress');
+    if (saved) {
+        userProgress = JSON.parse(saved);
+        updateProgressDisplay();
+    }
+}
+
+function saveProgress() {
+    localStorage.setItem('userProgress', JSON.stringify(userProgress));
+    updateProgressDisplay();
+}
+
+function updateProgressDisplay() {
+    let percent = Math.min((userProgress.lessons / 20) * 100, 100);
+    document.getElementById('progressPercent').innerText = Math.round(percent) + '%';
+    document.getElementById('progressFill').style.width = percent + '%';
+    
+    document.getElementById('pointCount').innerText = userProgress.points;
+    document.getElementById('lessonCount').innerText = userProgress.lessons;
+    document.getElementById('badgeCount').innerText = userProgress.badges;
+    document.getElementById('completedLessons').innerText = userProgress.lessons;
+    document.getElementById('levelPercent').innerText = Math.round(percent);
+    document.getElementById('profileProgress').style.width = percent + '%';
+}
+
+// ====== إكمال الدرس ======
+function completeLesson() {
+    if (!userProgress.completedVideos.includes(currentVideo)) {
+        userProgress.points += 10;
+        userProgress.lessons += 1;
+        userProgress.completedVideos.push(currentVideo);
+        
+        if (userProgress.lessons % 5 === 0) {
+            userProgress.badges += 1;
+            showToast('🏆 شارة جديدة! مبروك!');
+        }
+        
+        saveProgress();
+        showToast('✅ +10 نقاط! أحسنت!');
+    } else {
+        showToast('⚠️ أكملت هذا الدرس مسبقاً');
+    }
+}
+
+// ====== فتح الفيديو ======
+let currentVideo = '';
+
+function openVideo(type) {
+    currentVideo = type;
+    let data = videoData[type];
+    
+    document.getElementById('videoTitle').innerText = data.title;
+    document.getElementById('videoDesc').innerText = data.desc;
+    document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/' + data.videoId;
+    
+    let summaryHtml = data.summary.map(s => 
+        `<li style="padding:8px 0; border-bottom:1px solid var(--light-gray);">${s}</li>`
+    ).join('');
+    document.getElementById('videoSummary').innerHTML = summaryHtml;
+    
+    go('video');
+}
 
 // ====== التنقل بين الصفحات ======
 function go(page, navItem = null) {
-    // إخفاء كل الصفحات
     document.querySelectorAll('.page').forEach(p => {
         p.classList.remove('active');
     });
     
-    // إظهار الصفحة المطلوبة
     document.getElementById(page).classList.add('active');
     
-    // تحديث التبويب النشط
     if (navItem) {
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         navItem.classList.add('active');
@@ -1397,11 +1751,9 @@ function go(page, navItem = null) {
     
     currentPage = page;
     
-    // تهيئة الصفحات الخاصة
     if (page === 'quiz') newQuestion();
     if (page === 'shapes') newShape();
     
-    // التمرير للأعلى
     window.scrollTo(0, 0);
 }
 
@@ -1422,8 +1774,8 @@ window.onload = function() {
         document.getElementById('userName').innerText = savedName;
     }
     
-    // ملء صفحة الدورات
     fillCoursesPage();
+    loadProgress();
 };
 
 // ====== البحث والفلترة ======
@@ -1444,11 +1796,9 @@ function searchCourses() {
 }
 
 function filterCategory(chip, category) {
-    // تحديث الزر النشط
     document.querySelectorAll('.categories .category-chip').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     
-    // فلترة الدورات
     let cards = document.querySelectorAll('.course-card');
     cards.forEach(card => {
         if (category === 'all' || card.dataset.category === category) {
@@ -1463,15 +1813,15 @@ function filterCategory(chip, category) {
 function fillCoursesPage() {
     let list = document.getElementById('coursesPageList');
     let courses = [
-        {icon: '🧠', title: 'مهارات التفكير الناقد', desc: 'تطوير قدراتك على تحليل المعلومات', color: 'purple', lessons: 5, rating: 4.8},
-        {icon: '⏰', title: 'إدارة الوقت', desc: 'تعلم كيف تنظم يومك بكفاءة', color: 'yellow', lessons: 4, rating: 4.6},
-        {icon: '💻', title: 'أساسيات البرمجة', desc: 'ابدأ رحلتك في عالم البرمجة', color: 'green', lessons: 5, rating: 4.9},
-        {icon: '🌐', title: 'مهارات التواصل', desc: 'تواصل بلغة واحترافية', color: 'blue', lessons: 4, rating: 4.7},
-        {icon: '🎨', title: 'التصميم الإبداعي', desc: 'أطلق إبداعك في التصميم', color: 'pink', lessons: 5, rating: 4.5},
+        {icon: '⚛️', title: 'فيزياء أساسية', desc: 'تعلم القوانين الأساسية في الحركة والقوى', color: 'purple', lessons: 5, rating: 4.8, cat: 'physics'},
+        {icon: '🧪', title: 'كيمياء عامة', desc: 'العناصر والمركبات والتفاعلات الكيميائية', color: 'green', lessons: 4, rating: 4.6, cat: 'chemistry'},
+        {icon: '📐', title: 'رياضيات أساسية', desc: 'الجمع والطرح والضرب مع أمثلة تطبيقية', color: 'yellow', lessons: 5, rating: 4.9, cat: 'math'},
+        {icon: '🌐', title: 'مهارات الترجمة', desc: 'تعلم ترجمة النصوص باحترافية', color: 'blue', lessons: 4, rating: 4.7, cat: 'translation'},
+        {icon: '🇬🇧', title: 'اللغة الإنجليزية', desc: 'تعلم المحادثة والقواعد من الصفر', color: 'pink', lessons: 5, rating: 4.5, cat: 'english'},
     ];
     
     list.innerHTML = courses.map(c => `
-        <div class="course-card" onclick="go('video')">
+        <div class="course-card" data-category="${c.cat}" onclick="openVideo('${c.cat}')">
             <div class="course-icon ${c.color}">${c.icon}</div>
             <div class="course-info">
                 <h3>${c.title}</h3>
@@ -1498,7 +1848,9 @@ function toggleTask(checkbox) {
     text.classList.toggle('done');
     
     if (checkbox.classList.contains('done')) {
-        showToast('✅ مهمة مكتملة! +10 نقاط');
+        userProgress.points += 5;
+        saveProgress();
+        showToast('✅ مهمة مكتملة! +5 نقاط');
     }
 }
 
@@ -1542,6 +1894,8 @@ function checkAnswer(btn, chosen) {
     
     if (chosen === correctAnswer) {
         score += 10;
+        userProgress.points += 10;
+        saveProgress();
         showToast('🎉 إجابة صحيحة! +10 نقاط');
     } else {
         btn.classList.add('wrong');
@@ -1563,6 +1917,8 @@ function newShape() {
 function checkShape(type) {
     if (type === shapeType) {
         shapeScore += 5;
+        userProgress.points += 5;
+        saveProgress();
         showToast('🎉 أحسنت! +5 نقاط');
     } else {
         showToast('❌ حاول مرة أخرى');
@@ -1570,6 +1926,15 @@ function checkShape(type) {
     
     document.getElementById('shapeScore').innerText = shapeScore;
     newShape();
+}
+
+// ====== إعادة التقدم ======
+function resetProgress() {
+    if (confirm('هل أنت متأكد من إعادة التقدم من الصفر؟')) {
+        userProgress = { points: 0, lessons: 0, badges: 0, completedVideos: [] };
+        saveProgress();
+        showToast('🔄 تم إعادة التقدم!');
+    }
 }
 
 // ====== إشعارات ======
@@ -1595,3 +1960,4 @@ document.addEventListener('keydown', (e) => {
 
 </body>
 </html>
+
